@@ -6,6 +6,20 @@
 
 int main()
 {
+	std::cout << "size of a char is " << sizeof(char) << std::endl;
+	std::cout << "size of an int is " << sizeof(int) << std::endl;
+	std::cout << "size of a long is " << sizeof(long) << std::endl;
+	std::cout << "size of a double is " << sizeof(double) << std::endl;
+
+	int a = 20000;
+	char b = a;
+	if (a != b) {
+		std::cout << "implicit narrowing" << std::endl;
+	}
+	else {
+		std::cout << "wooow!! we have big characters" << std::endl;
+	}
+
 	const double cm_per_in = 2.54;
 	int val;
 	char unit;
@@ -21,4 +35,3 @@ int main()
 		}
 	}
 }
-
