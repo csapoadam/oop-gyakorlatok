@@ -3,6 +3,8 @@
 
 #include "stdafx.h"
 #include<iostream>
+#include<ctime>
+#include<cstdlib>
 
 
 void printTomb(int* ptr, int len) {
@@ -84,6 +86,34 @@ int main()
 	// printTomb(tomb, 7);
 	quickSort(tomb, 7);
 	printTomb(tomb, 7);
+
+	clock_t begin, end;
+	srand(clock()); // init seed ido alapjan
+	const int numiters = 10000;
+	const int numelems = 500;
+	// bubblesort 4.95 secs, quicksort 0.79 sec
+
+	begin = clock();
+	for (int i = 0; i < numiters; i++) {
+		int tomb2[numelems];
+		for (int j = 0; j < numelems; j++) {
+			tomb2[j] = rand();
+		}
+		bubbleSort(tomb2, numelems);
+	}
+	end = clock();
+	std::cout << "time for bubblesort = " << double(end - begin) / CLOCKS_PER_SEC << std::endl;
+
+	begin = clock();
+	for (int i = 0; i < numiters; i++) {
+		int tomb2[numelems];
+		for (int j = 0; j < numelems; j++) {
+			tomb2[j] = rand();
+		}
+		quickSort(tomb2, numelems);
+	}
+	end = clock();
+	std::cout << "time for quicksort = " << double(end - begin) / CLOCKS_PER_SEC << std::endl;
 
 	char c;
 	std::cin >> c;
