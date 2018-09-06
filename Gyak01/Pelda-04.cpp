@@ -6,6 +6,8 @@
 #include<vector>
 #include<algorithm>
 #include<string>
+#include<cstdlib>
+#include<ctime>
 
 void printVector(std::vector<int> v) {
 	for (std::vector<int>::const_iterator i = v.begin(); i != v.end(); i++) {
@@ -37,6 +39,10 @@ bool embercomp(Ember e1, Ember e2) {
 	return (e1.eletkor < e2.eletkor);
 }
 
+bool aggastyan(Ember e) {
+	return (e.eletkor > 90);
+}
+
 int main()
 {
 	std::vector<int> vec;
@@ -64,6 +70,24 @@ int main()
 	printEmberVector(embervec);
 	std::sort(embervec.begin(), embervec.end(), embercomp);
 	std::cout << "After sort:" << std::endl;
+	printEmberVector(embervec);
+
+	std::any_of(embervec.begin(), embervec.end(), aggastyan) ?
+		std::cout << "Sajnos eljart felettunk az ido" << std::endl :
+		std::cout << "Csak a huszeveseke a vilag" << std::endl;
+
+	// initialize random seed
+	srand(clock());
+	for (std::vector<Ember>::iterator i = embervec.begin(); i != embervec.end(); i++) {
+		(*i).oregit(rand());
+	}
+
+	std::cout << "after oregit" << std::endl;
+	std::any_of(embervec.begin(), embervec.end(), aggastyan) ?
+		std::cout << "Sajnos eljart felettunk az ido" << std::endl :
+		std::cout << "Csak a huszeveseke a vilag" << std::endl;
+
+	std::sort(embervec.begin(), embervec.end(), embercomp);
 	printEmberVector(embervec);
 	
 	char c;
