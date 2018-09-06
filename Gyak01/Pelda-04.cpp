@@ -33,6 +33,10 @@ void printEmberVector(std::vector<Ember> v) {
 	std::cout << std::endl;
 }
 
+bool embercomp(Ember e1, Ember e2) {
+	return (e1.eletkor < e2.eletkor);
+}
+
 int main()
 {
 	std::vector<int> vec;
@@ -57,6 +61,9 @@ int main()
 	embervec.push_back(e2);
 	embervec.push_back(e3);
 
+	printEmberVector(embervec);
+	std::sort(embervec.begin(), embervec.end(), embercomp);
+	std::cout << "After sort:" << std::endl;
 	printEmberVector(embervec);
 	
 	char c;
