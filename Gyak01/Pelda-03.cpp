@@ -29,7 +29,7 @@ void bubbleSort(int* ptr, int len) {
 	}
 }
 
-void quickSort(int* ptr, int first, int last) {
+void quickSort(int* ptr, int length) {
 	// random kivalasztunk egy elemet = pivot
 	// (mivel kezdetben nem meghatarozott a sorrend, lehet a pivot a 0. elem)
 	//
@@ -46,6 +46,8 @@ void quickSort(int* ptr, int first, int last) {
 	// Es vegul meghivjuk u.ezt a fuggvenyt a pivot elotti es utani reszre
 
 	int i, j, pivot_loc, temp;
+	int first = 0;
+	int last = length - 1;
 
 	if (first < last) {
 		pivot_loc = first;
@@ -69,8 +71,8 @@ void quickSort(int* ptr, int first, int last) {
 		temp = ptr[pivot_loc];
 		ptr[pivot_loc] = ptr[j];
 		ptr[j] = temp;
-		quickSort(ptr, first, j - 1);
-		quickSort(ptr, j + 1, last);
+		quickSort(ptr + first, j - first);
+		quickSort(ptr + j + 1, length - j - 1);
 	}
 }
 
@@ -80,7 +82,7 @@ int main()
 	printTomb(tomb, 7);
 	// bubbleSort(tomb, 7);
 	// printTomb(tomb, 7);
-	quickSort(tomb, 0, 6);
+	quickSort(tomb, 7);
 	printTomb(tomb, 7);
 
 	char c;
