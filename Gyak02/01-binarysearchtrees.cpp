@@ -22,12 +22,28 @@ struct AvlTree
 		root = nullptr;
 	}
 
-	int nodeHeightInTree(Node* node) {
+	int subtreeHeight(Node* node) {
 		if (node == nullptr) {
 			return -1;
 		} else {
 			return node->maxDistanceToLeaf;
 		}
+	}
+
+	Node* rotateRight(Node* node) {
+		Node * temp = node->left;
+		node->left = node->left->right;
+		temp->right = node;
+		//node is now deeper than temp, so refresh node's distanceToLeaf first
+		node->maxDistanceToLeaf = std::max(
+			subtreeHeight(node->left),
+			subtreeHeight(node->right)
+		) + 1;
+		temp->maxDistanceToLeaf = std::max(
+			subtreeHeight(temp->left),
+			subtreeHeight(temp->right)
+		) + 1;
+		return temp;
 	}
 
 	Node* insertToNode(int key, Node* node) {
@@ -45,25 +61,39 @@ struct AvlTree
 			node->left = insertToNode(key, node->left);
 			// tree balanced to begin with. Problems can occur only
 			// when something is inserted to left or right
-			if (nodeHeightInTree(node->left) - nodeHeightInTree(node->right) == 2) {
-				std::cout << "Houston, we have a problem on LEFT for node with key " << node->key << std::endl;
-				std::cout << "height to left is" << nodeHeightInTree(node->left) << std::endl;
-				std::cout << "height to right is" << nodeHeightInTree(node->right) << std::endl;
+			if (subtreeHeight(node->left) - subtreeHeight(node->right) == 2) {
+				std::cout << "Houston, we have a problem on LEFT for node with key " << node->key << ".";
+				std::cout << "Height to left and right are " << subtreeHeight(node->left) << ", " << subtreeHeight(node->right) << std::endl;
+				if (key < node->left->key) {
+					//left left case
+					node = rotateRight(node);
+				}
+				else if (key > node->left->key) {
+					//left right case
+					//todo...
+				}
 			}
 		}
 		else if (key > node->key) {
 			node->right = insertToNode(key, node->right);
 			// tree balanced to begin with. Problems can occur only
 			// when something is inserted to left or right
-			if (nodeHeightInTree(node->right) - nodeHeightInTree(node->left) == 2) {
-				std::cout << "Houston, we have a problem on RIGHT for node with key " << node->key << std::endl;
-				std::cout << "height to left is" << nodeHeightInTree(node->left) << std::endl;
-				std::cout << "height to right is" << nodeHeightInTree(node->right) << std::endl;
+			if (subtreeHeight(node->right) - subtreeHeight(node->left) == 2) {
+				std::cout << "Houston, we have a problem on RIGHT for node with key " << node->key << ".";
+				std::cout << "Height to right and left are " << subtreeHeight(node->right) << ", " << subtreeHeight(node->left) << std::endl;
+				if (key < node->right->key) {
+					//right left case
+					//todo
+				}
+				else if (key > node->right->key) {
+					//left right case
+					//todo...
+				}
 			}
 		}
 		node->maxDistanceToLeaf = std::max(
-			nodeHeightInTree(node->left),
-			nodeHeightInTree(node->right)
+			subtreeHeight(node->left),
+			subtreeHeight(node->right)
 		) + 1;
 		return node;
 	}
