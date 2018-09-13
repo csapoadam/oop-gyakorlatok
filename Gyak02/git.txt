@@ -1,1 +1,10 @@
 git test
+
+Miket vettünk?
+- git status
+- git branch
+- git log
+- git add
+- git commit
+- git push (origin master)
+- git diff
