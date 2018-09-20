@@ -143,6 +143,9 @@ std::vector<Node*> AvlTree::getLayer(Node* topnode, int layer) {
 }
 
 void AvlTree::printLayer(Node* topnode, int layer, int subtreeHeight) {
+	// note: this is not very efficient, as the same layers are traversed
+	// over and over again
+	// would be better to keep previous layer and get the next
 	std::vector<Node*> layernodes = getLayer(topnode, layer);
 	for (std::vector<Node*>::iterator i = layernodes.begin();
 		i != layernodes.end();
