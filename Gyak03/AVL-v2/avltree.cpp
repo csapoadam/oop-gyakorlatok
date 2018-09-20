@@ -149,7 +149,7 @@ void AvlTree::printLayer(Node* topnode, int layer, int subtreeHeight) {
 	// would be better to keep previous layer and get the next
 	std::vector<Node*> layernodes = getLayer(topnode, layer);
 	int indent = std::pow(2, (subtreeHeight - layer)) - 2;
-	int spacing = std::pow(2, (subtreeHeight - layer));
+	int spacing = std::pow(2, (subtreeHeight - layer + 1));
 
 	std::string indentStr = "";
 	for (int i = 0; i < indent; i++) {
@@ -166,7 +166,12 @@ void AvlTree::printLayer(Node* topnode, int layer, int subtreeHeight) {
 		i != layernodes.end();
 		i++) {
 		if (*i) {
-			std::cout << (*i)->key << spacingStr;
+			std::cout << (*i)->key;
+			int newspacing = spacing - (*i)->numDigits();
+			newspacing = newspacing < 1 ? 1 : newspacing;
+			for (int j = 0; j < newspacing; j++) {
+				std::cout << " ";
+			}
 		}
 		else {
 			std::cout << spacingStr;

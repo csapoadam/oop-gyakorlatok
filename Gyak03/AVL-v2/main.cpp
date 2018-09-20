@@ -11,7 +11,7 @@ int main()
 {
 	AvlTree mytree;
 	std::vector<int> numbersToInsert = {
-		10, 5, 15, 7, 3, 3, 2, 8, 1
+		10, 5, 15, 7, 3, 3, 2, 8, 1, 14, 16
 	};
 
 	for (std::vector<int>::const_iterator i = numbersToInsert.begin();
