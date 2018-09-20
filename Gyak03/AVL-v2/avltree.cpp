@@ -2,6 +2,7 @@
 #include "avltree.h"
 #include <iostream>
 #include <algorithm>
+#include <string>
 
 AvlTree::AvlTree() {
 	root = nullptr;
@@ -147,14 +148,28 @@ void AvlTree::printLayer(Node* topnode, int layer, int subtreeHeight) {
 	// over and over again
 	// would be better to keep previous layer and get the next
 	std::vector<Node*> layernodes = getLayer(topnode, layer);
+	int indent = std::pow(2, (subtreeHeight - layer)) - 2;
+	int spacing = std::pow(2, (subtreeHeight - layer));
+
+	std::string indentStr = "";
+	for (int i = 0; i < indent; i++) {
+		indentStr = indentStr.append(" ");
+	}
+	std::cout << indentStr;
+
+	std::string spacingStr = "";
+	for (int i = 0; i < spacing; i++) {
+		spacingStr = spacingStr.append(" ");
+	}
+
 	for (std::vector<Node*>::iterator i = layernodes.begin();
 		i != layernodes.end();
 		i++) {
 		if (*i) {
-			std::cout << (*i)->key << ", ";
+			std::cout << (*i)->key << spacingStr;
 		}
 		else {
-			std::cout << ", ";
+			std::cout << spacingStr;
 		}
 	}
 	std::cout << std::endl;
