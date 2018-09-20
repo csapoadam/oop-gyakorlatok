@@ -11,7 +11,9 @@ int main()
 {
 	AvlTree mytree;
 	std::vector<int> numbersToInsert = {
-		10, 5, 15, 7, 3, 3, 2, 8, 1, 14, 16
+		10, 5, 15, 7, 3, 3, 2, 8, 1, 14, 16, 17, 18, 19, 20
+		// adding these numbers shows we really need to implement
+		// balancing in all 4 cases!!
 	};
 
 	for (std::vector<int>::const_iterator i = numbersToInsert.begin();
