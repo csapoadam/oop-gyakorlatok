@@ -95,11 +95,16 @@ void AvlTree::insert(int keyToInsert) {
 
 // todo: remove and clear as well (using heap!)
 
-void AvlTree::print(Node* node) {
+void AvlTree::printKeyForNode(Node* node) {
 	if (node == nullptr) {
 		return;
 	}
-	print(node->left);
+	printKeyForNode(node->left);
 	std::cout << node->key << ", ";
-	print(node->right);
+	printKeyForNode(node->right);
+}
+
+void AvlTree::printTreeAsList() {
+	printKeyForNode(root);
+	std::cout << std::endl;
 }

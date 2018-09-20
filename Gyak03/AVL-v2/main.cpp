@@ -21,7 +21,7 @@ int main()
 	}
 
 	std::cout << "Here is the tree, hopefully in sorted order:" << std::endl;
-	mytree.print(mytree.root);
+	mytree.printTreeAsList();
 	std::cout << std::endl;
 
 	char c;
