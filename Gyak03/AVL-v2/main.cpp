@@ -23,6 +23,7 @@ int main()
 	std::cout << "Here is the tree, hopefully in sorted order:" << std::endl;
 	mytree.printTreeAsList();
 	std::cout << std::endl;
+	mytree.printTree();
 
 	char c;
 	std::cin >> c;

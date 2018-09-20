@@ -2,6 +2,7 @@
 #define AVLTREE_H
 
 #include "node.h"
+#include <vector>
 
 // in order for binary trees to be efficient, they better be balanced
 // AVL trees: no node in tree such that depth of left and right
@@ -18,10 +19,14 @@ private:
 	// true if first node was printed, false otherwise
 	bool firstNodeWasPrinted;
 	void printKeyForNode(Node* node);
+	void printSubtree(Node* node);
+	void printLayer(Node* topnode, int layer, int heightOfSubtree);
+	std::vector<Node*> getLayer(Node* topnode, int layer);
 public:
 	AvlTree();
 	void insert(int keyToInsert);
 	void printTreeAsList();
+	void printTree();
 };
 
 #endif

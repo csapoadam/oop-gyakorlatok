@@ -115,3 +115,55 @@ void AvlTree::printTreeAsList() {
 	printKeyForNode(root);
 	std::cout << std::endl;
 }
+
+std::vector<Node*> AvlTree::getLayer(Node* topnode, int layer) {
+	std::vector<Node*> layernodes;
+	layernodes.push_back(topnode);
+	for (int i = 0; i < layer; i++) {
+		//first copy layernodes
+		//then clear it to be able to iterate thru it
+		//and insert new layer at the same time
+		std::vector<Node*> tmp(layernodes);
+		layernodes.clear();
+		for (std::vector<Node*>::iterator iter = tmp.begin();
+			iter != tmp.end();
+			iter++) {
+			Node* currentNode = *iter;
+			if (currentNode) {
+				layernodes.push_back(currentNode->left);
+				layernodes.push_back(currentNode->right);
+			}
+			else {
+				layernodes.push_back(nullptr);
+				layernodes.push_back(nullptr);
+			}
+		}
+	}
+	return layernodes;
+}
+
+void AvlTree::printLayer(Node* topnode, int layer, int subtreeHeight) {
+	std::vector<Node*> layernodes = getLayer(topnode, layer);
+	for (std::vector<Node*>::iterator i = layernodes.begin();
+		i != layernodes.end();
+		i++) {
+		if (*i) {
+			std::cout << (*i)->key << ", ";
+		}
+		else {
+			std::cout << ", ";
+		}
+	}
+	std::cout << std::endl;
+}
+
+void AvlTree::printSubtree(Node* node) {
+	int heightOfSubtree = subtreeHeight(node);
+	for (int i = 0; i < heightOfSubtree + 1; i++) {
+		printLayer(node, i, heightOfSubtree);
+	}
+}
+
+void AvlTree::printTree() {
+	printSubtree(root);
+}
