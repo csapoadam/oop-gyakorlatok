@@ -100,11 +100,18 @@ void AvlTree::printKeyForNode(Node* node) {
 		return;
 	}
 	printKeyForNode(node->left);
-	std::cout << node->key << ", ";
+	if (firstNodeWasPrinted) {
+		std::cout << ", " << node->key;
+	}
+	else {
+		std::cout << node->key;
+		firstNodeWasPrinted = true;
+	}
 	printKeyForNode(node->right);
 }
 
 void AvlTree::printTreeAsList() {
+	firstNodeWasPrinted = false;
 	printKeyForNode(root);
 	std::cout << std::endl;
 }

@@ -14,6 +14,9 @@ private:
 	Node* rotateRight(Node* node);
 	Node* insertToNode(int key, Node* node);
 	// todo: remove and clear as well (using heap!)
+	// ugly helper variable:
+	// true if first node was printed, false otherwise
+	bool firstNodeWasPrinted;
 	void printKeyForNode(Node* node);
 public:
 	AvlTree();
