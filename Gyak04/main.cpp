@@ -32,6 +32,7 @@ int main()
 	// ha van destruktor, DE copy assignment meg nincs, akkor
 	// kilepeskor exception-t dob (read access violation), mert
 	// mytree2-t elobb torli, tehat, a mytree4-nek mar nincsenek valid pointerei!
+	// mytree4 = AvlTree(); //csak akkor mukodik, ha operator= const referenciat var, mert bal oldali referencia nem lehet jobb oldali ertek!
 
 	mytree2.insert(66);
 	mytree.printTreeAsList();

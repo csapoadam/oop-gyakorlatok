@@ -28,6 +28,8 @@ private:
 public:
 	AvlTree();
 	AvlTree(const AvlTree& tree);
+	AvlTree& operator=(const AvlTree& other);
+	AvlTree& operator=(AvlTree&& other); //move assignment majdnem u.az, mint copy ass. csak jobb oldali referenciaval
 	~AvlTree(); //if we have copy constructor, need destructor too! (Rule of 3)
 	void insert(int keyToInsert);
 	void printTreeAsList();

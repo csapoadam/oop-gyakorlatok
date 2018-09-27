@@ -38,6 +38,20 @@ AvlTree::AvlTree(const AvlTree& tree) {
 	}
 }
 
+AvlTree& AvlTree::operator=(const AvlTree& other) {
+	// alapelv: nem hagyhatjuk a cel valtozot felemas allapotban!
+	// ha a masolas elhasal, az gaz!!
+	AvlTree tmp(other); //ezert elobb copy constructor, majd ha sikeres minden, akkor tmp valtozoval csere!
+	std::swap(tmp, *this); //azert mukodik, mert std::swap move semantikat hasznal!!
+	//ez viszont problema is, mert AvlTree-nek nincs move assignmentje!!
+	return *this;
+}
+
+AvlTree& AvlTree::operator=(AvlTree&& other) {
+	std::swap(root, other.root);
+	return *this;
+}
+
 Node* AvlTree::cloneSubtree(Node* node) {
 	Node* leftnode = nullptr; //4. sor
 	Node* rightnode = nullptr; //5. sor
