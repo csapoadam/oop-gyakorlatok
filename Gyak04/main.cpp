@@ -29,6 +29,9 @@ int main()
 	AvlTree mytree4;
 	mytree4 = mytree2; // mytree4 mar letezik, ezert ez assignment
 	//we need copy assignment, not just copy constructor
+	// ha van destruktor, DE copy assignment meg nincs, akkor
+	// kilepeskor exception-t dob (read access violation), mert
+	// mytree2-t elobb torli, tehat, a mytree4-nek mar nincsenek valid pointerei!
 
 	mytree2.insert(66);
 	mytree.printTreeAsList();

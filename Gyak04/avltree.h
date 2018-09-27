@@ -12,6 +12,7 @@ class AvlTree
 private:
 	Node* root;
 	Node* cloneSubtree(Node*);
+	void removeSubtree(Node*);
 	int subtreeHeight(Node* node);
 	Node* rotateLeft(Node* node);
 	Node* rotateRight(Node* node);
@@ -27,6 +28,7 @@ private:
 public:
 	AvlTree();
 	AvlTree(const AvlTree& tree);
+	~AvlTree(); //if we have copy constructor, need destructor too! (Rule of 3)
 	void insert(int keyToInsert);
 	void printTreeAsList();
 	void printTree();

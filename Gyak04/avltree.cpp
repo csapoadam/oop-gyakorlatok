@@ -8,6 +8,23 @@ AvlTree::AvlTree() {
 	root = nullptr;
 }
 
+AvlTree::~AvlTree() {
+	//az osszes new-val letrehozott pointerre kell egy delete!
+	removeSubtree(root); //csinaljunk segedfv-t, mert ugyis rekurzivan meg kell hivni
+}
+
+void AvlTree::removeSubtree(Node* node) {
+	if (node) {
+		if (node->left) {
+			removeSubtree(node->left);
+		}
+		if (node->right) {
+			removeSubtree(node->right);
+		}
+		delete node;
+	}
+}
+
 AvlTree::AvlTree(const AvlTree& tree) {
 	// elobb megnezzuk, egytalalan van e valami a rootban
 	// ha pl most hoztuk letre tree-t is, akkor a fenti constructor nullptr-re allitja a root-ot!!
