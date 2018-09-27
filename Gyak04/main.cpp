@@ -1,6 +1,3 @@
-// Gyak03-avlrestru.cpp : Defines the entry point for the console application.
-//
-
 #include "stdafx.h"
 #include "avltree.h"
 #include <vector>
@@ -27,8 +24,25 @@ int main()
 	std::cout << std::endl;
 	mytree.printTree();
 
+	AvlTree mytree2 = mytree;
+	AvlTree mytree3(mytree2);
+
+	mytree2.insert(66);
+	mytree.printTreeAsList();
+	mytree2.printTreeAsList();
+	mytree3.printTreeAsList();
+
+	// what if
+	int mytreeInt = 5;
+	int mytreeInt2 = mytreeInt;
+	int mytreeInt3(mytreeInt2);
+
+	mytreeInt2 = 6;
+	std::cout << "mytreeInt = " << mytreeInt << std::endl;
+	std::cout << "mytreeInt2 = " << mytreeInt2 << std::endl;
+	std::cout << "mytreeInt3 = " << mytreeInt3 << std::endl;
+
 	char c;
 	std::cin >> c;
 	return 0;
 }
-
