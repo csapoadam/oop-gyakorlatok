@@ -24,13 +24,17 @@ int main()
 	std::cout << std::endl;
 	mytree.printTree();
 
-	AvlTree mytree2 = mytree;
+	AvlTree mytree2 = mytree; //also uses copy constructor! not assignment! - at least in visual studio...
 	AvlTree mytree3(mytree2);
+	AvlTree mytree4;
+	mytree4 = mytree2; // mytree4 mar letezik, ezert ez assignment
+	//we need copy assignment, not just copy constructor
 
 	mytree2.insert(66);
 	mytree.printTreeAsList();
 	mytree2.printTreeAsList();
 	mytree3.printTreeAsList();
+	mytree4.printTreeAsList();
 
 	// what if
 	int mytreeInt = 5;
