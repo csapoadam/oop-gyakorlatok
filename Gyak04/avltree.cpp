@@ -17,6 +17,22 @@ int AvlTree::subtreeHeight(Node* node) {
 	}
 }
 
+Node* AvlTree::rotateLeft(Node* node) {
+	Node* temp = node->right;
+	node->right = node->right->left;
+	temp->left = node;
+	//node is now deeper than temp, so refresh node's distanceToLeaf first
+	node->maxDistanceToLeaf = std::max(
+		subtreeHeight(node->left),
+		subtreeHeight(node->right)
+	) + 1;
+	temp->maxDistanceToLeaf = std::max(
+		subtreeHeight(temp->left),
+		subtreeHeight(temp->right)
+	) + 1;
+	return temp;
+}
+
 Node* AvlTree::rotateRight(Node* node) {
 	Node * temp = node->left;
 	node->left = node->left->right;
@@ -57,7 +73,8 @@ Node* AvlTree::insertToNode(int key, Node* node) {
 			}
 			else if (key > node->left->key) {
 				//left right case
-				//todo...
+				node->left = rotateLeft(node->left);
+				node = rotateRight(node);
 			}
 		}
 	}
@@ -70,11 +87,12 @@ Node* AvlTree::insertToNode(int key, Node* node) {
 			std::cout << "Height to right and left are " << subtreeHeight(node->right) << ", " << subtreeHeight(node->left) << std::endl;
 			if (key < node->right->key) {
 				//right left case
-				//todo
+				node->right = rotateRight(node->right);
+				node = rotateLeft(node);
 			}
 			else if (key > node->right->key) {
-				//left right case
-				//todo...
+				//right right case
+				node = rotateLeft(node);
 			}
 		}
 	}

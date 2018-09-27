@@ -12,6 +12,7 @@ class AvlTree
 private:
 	Node* root;
 	int subtreeHeight(Node* node);
+	Node* rotateLeft(Node* node);
 	Node* rotateRight(Node* node);
 	Node* insertToNode(int key, Node* node);
 	// todo: remove and clear as well (using heap!)
