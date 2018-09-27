@@ -8,6 +8,40 @@ AvlTree::AvlTree() {
 	root = nullptr;
 }
 
+AvlTree::AvlTree(const AvlTree& tree) {
+	// elobb megnezzuk, egytalalan van e valami a rootban
+	// ha pl most hoztuk letre tree-t is, akkor a fenti constructor nullptr-re allitja a root-ot!!
+	if (tree.root) { // root privat valtozo - miert
+		//ferunk hozza itt a tree rootjahoz? most nem a tree objektum fv-eben vagyunk!!
+		//valasz: mert az AvlTree scope-jaban vagyunk - csak ez szamit! (AvlTree::)
+		root = cloneSubtree(tree.root);
+	}
+	else {
+		root = tree.root; //vagy siman nullptr
+	}
+}
+
+Node* AvlTree::cloneSubtree(Node* node) {
+	Node* leftnode = nullptr; //4. sor
+	Node* rightnode = nullptr; //5. sor
+	//persze ezek csak akkor nullptr-ek, ha node bal es jobb gyermeke is az
+	if (node->left) { //6. sor +
+		leftnode = cloneSubtree(node->left);
+	}
+	if (node->right) {
+		rightnode = cloneSubtree(node->right);
+	}
+
+	//1. sor, ami biztosan kell:
+	Node* newnode = new Node(node->key, node->maxDistanceToLeaf);
+	//mivel a structban minden public, key lekerdezheto
+	//viszont: ilyen konstruktor meg nem letezik, csinalni kell!
+	//3. sorok, amik kellenek: left es right beallitasa:
+	newnode->left = leftnode;
+	newnode->right = rightnode;
+	return newnode; // 2. sor, ami biztosan kell
+}
+
 int AvlTree::subtreeHeight(Node* node) {
 	if (node == nullptr) {
 		return -1;
@@ -53,11 +87,10 @@ Node* AvlTree::insertToNode(int key, Node* node) {
 	// simplest case: tree still empty OR
 	// node's parent still has no child in this place (left or right)
 	if (node == nullptr) {
-		node = new Node;
-		node->key = key;
+		node = new Node(key, 0); //ha definialva van legalabb 1 konstructor, muszaj hasznalni
+		// (default konstruktor nem letezik, de mar van helyette masik)
 		node->left = nullptr;
 		node->right = nullptr;
-		node->maxDistanceToLeaf = 0;
 	} //otherwise insert to left or right 
 	else if (key < node->key) {
 		//insert to left

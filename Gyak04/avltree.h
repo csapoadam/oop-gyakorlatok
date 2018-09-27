@@ -11,6 +11,7 @@ class AvlTree
 {
 private:
 	Node* root;
+	Node* cloneSubtree(Node*);
 	int subtreeHeight(Node* node);
 	Node* rotateLeft(Node* node);
 	Node* rotateRight(Node* node);
@@ -25,6 +26,7 @@ private:
 	std::vector<Node*> getLayer(Node* topnode, int layer);
 public:
 	AvlTree();
+	AvlTree(const AvlTree& tree);
 	void insert(int keyToInsert);
 	void printTreeAsList();
 	void printTree();
