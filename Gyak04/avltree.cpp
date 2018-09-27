@@ -26,6 +26,7 @@ void AvlTree::removeSubtree(Node* node) {
 }
 
 AvlTree::AvlTree(const AvlTree& tree) {
+	std::cout << "copy constructor called" << std::endl;
 	// elobb megnezzuk, egytalalan van e valami a rootban
 	// ha pl most hoztuk letre tree-t is, akkor a fenti constructor nullptr-re allitja a root-ot!!
 	if (tree.root) { // root privat valtozo - miert
@@ -38,17 +39,27 @@ AvlTree::AvlTree(const AvlTree& tree) {
 	}
 }
 
+AvlTree::AvlTree(AvlTree&& other) : root(other.root) {
+	std::cout << "move constructor called" << std::endl;
+	other.root = nullptr; //mivel other kimegy a scope-bol, nehogy u.arra a pointerre hivjunk delete-et!
+}
+
 AvlTree& AvlTree::operator=(const AvlTree& other) {
+	std::cout << "copy assignment called" << std::endl;
 	// alapelv: nem hagyhatjuk a cel valtozot felemas allapotban!
 	// ha a masolas elhasal, az gaz!!
 	AvlTree tmp(other); //ezert elobb copy constructor, majd ha sikeres minden, akkor tmp valtozoval csere!
+	std::cout << "... swap called inside copy ass." << std::endl;
 	std::swap(tmp, *this); //azert mukodik, mert std::swap move semantikat hasznal!!
+	std::cout << "... swap ended inside copy ass." << std::endl;
 	//ez viszont problema is, mert AvlTree-nek nincs move assignmentje!!
 	return *this;
 }
 
 AvlTree& AvlTree::operator=(AvlTree&& other) {
+	std::cout << "move assignment called.. calling swap" << std::endl;
 	std::swap(root, other.root);
+	std::cout << "swap ended in move ass." << std::endl;
 	return *this;
 }
 
@@ -129,8 +140,8 @@ Node* AvlTree::insertToNode(int key, Node* node) {
 		// tree balanced to begin with. Problems can occur only
 		// when something is inserted to left or right
 		if (subtreeHeight(node->left) - subtreeHeight(node->right) == 2) {
-			std::cout << "Houston, we have a problem on LEFT for node with key " << node->key << ".";
-			std::cout << "Height to left and right are " << subtreeHeight(node->left) << ", " << subtreeHeight(node->right) << std::endl;
+			//std::cout << "Houston, we have a problem on LEFT for node with key " << node->key << ".";
+			//std::cout << "Height to left and right are " << subtreeHeight(node->left) << ", " << subtreeHeight(node->right) << std::endl;
 			if (key < node->left->key) {
 				//left left case
 				node = rotateRight(node);
@@ -147,8 +158,8 @@ Node* AvlTree::insertToNode(int key, Node* node) {
 		// tree balanced to begin with. Problems can occur only
 		// when something is inserted to left or right
 		if (subtreeHeight(node->right) - subtreeHeight(node->left) == 2) {
-			std::cout << "Houston, we have a problem on RIGHT for node with key " << node->key << ".";
-			std::cout << "Height to right and left are " << subtreeHeight(node->right) << ", " << subtreeHeight(node->left) << std::endl;
+			//std::cout << "Houston, we have a problem on RIGHT for node with key " << node->key << ".";
+			//std::cout << "Height to right and left are " << subtreeHeight(node->right) << ", " << subtreeHeight(node->left) << std::endl;
 			if (key < node->right->key) {
 				//right left case
 				node->right = rotateRight(node->right);
