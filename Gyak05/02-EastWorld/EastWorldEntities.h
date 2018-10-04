@@ -37,5 +37,14 @@ private:
 };
 
 
+class ServantBot : public Robot {
+public:
+	ServantBot(std::string name) : Robot(name) {}
+	void whatsYourName() { //a szuloben is van ilyen fv, attol fugg, melyiket hivjuk meg, h melyik fut le
+		// name sajnos private
+		// std::cout << "Hi Master, my name is " << name << "... what can I do for you?" << std::endl;
+		std::cout << "Hi, I'm a servant bot, but I forgot my name." << std::endl;
+	}
+};
 
 #endif // !EAST_WORLD_ENTITIES_HPP
