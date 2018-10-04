@@ -63,7 +63,7 @@ int main()
 
 	clock_t begin, end;
 	std::srand(std::clock());
-	const int numiters = 100;
+	const int numiters = 1;
 	const int numelems = 10000;
 
 	AvlTree testTree;
@@ -84,13 +84,22 @@ int main()
 	begin = clock();
 	for (int i = 0; i < numiters; i++) {
 		AvlTree res(testTree);
-		res = perturbTreeMove(std::move(res)); // u.az mint res = perturbTreeMove(AvlTree(testTree));
+		res = perturbTreeMove(std::move(res)); // u.az mint AvlTree res = perturbTreeMove(AvlTree(testTree));
 	}
 	end = clock();
 	std::cout << "time for " << numiters << " run(s) of perturbTreeMove() = " <<
 		double(end - begin) / CLOCKS_PER_SEC << std::endl;
 	// ha numiters = 100, akkor copy ideje 0.012 sec, move ideje pedig 0.005
 	// ha numiters=1000, akkor copy ideje 0.84 sec, move ideje pedig 0.39
+
+	// tanulsag:
+	// mindket esetben lemasoljuk testTree-t, tehat ez u.az... de utana:
+	// perturbTreeMove() csak move assignmentet hiv amikor visszater (ha a 87. sor kommentjeben levo
+	// sort hasznaltuk volna, akkor ehelyett move ass. helyett move constructort)
+	// perturbTreeCopy() pedig a fv meghivasakor szinten semmit (mivel referenciat ad at),
+	// de utana kell egy copy assignment, mikor a fv visszater, ehhez pedig, hogy
+	// biztonsagos legyen, eloszor kell copy contruktor (temp valtozo), majd swap
+	// a temp es a celvaltozo kozott.
 
 	// what if
 	int mytreeInt = 5;
