@@ -8,7 +8,7 @@
 class EastWorldEntity {
 public:
 	EastWorldEntity(const std::string n) : name(n) {}
-	void whatsYourName() {
+	virtual void whatsYourName() {
 		std::cout << "My name is " << name << "... hello!" << std::endl;
 	}
 private:
@@ -57,7 +57,7 @@ private:
 class ServantBot : public Robot {
 public:
 	ServantBot(std::string name) : Robot(name) {}
-	void whatsYourName() { //a szuloben is van ilyen fv, attol fugg, melyiket hivjuk meg, h melyik fut le
+	void whatsYourName() override { //override nem kotelezo, de ha elirjuk a szignaturat, pl. intet ad vissza, akkor a fordito szol! ezert az override hasznos
 		// name sajnos private
 		// std::cout << "Hi Master, my name is " << name << "... what can I do for you?" << std::endl;
 		std::cout << "Hi, I'm a servant bot, but I forgot my name. However, I can tell you my battery level is: " << getCharge() << std::endl;

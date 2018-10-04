@@ -34,7 +34,7 @@ int main() {
 		// sajnos sb1-re is EastWorldEntity whatsYourName() metodusa hivodik meg
 		// a futtatasi kornyezet ugyanis nem tudja, hogy ezek valojaban nem biztos, hogy tenylegesen EastWorldEntity-k
 		// hanem mondjuk ServantBot-ok vagy FakeHuman-ok is lehetnek.
-		(*i)->whatsYourName(); //kovetkezo oran maskepp megoldjuk!
+		(*i)->whatsYourName();
 	}
 
 	char c;
