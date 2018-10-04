@@ -11,10 +11,14 @@ int main() {
 	Robot rob1("Robi");
 	ServantBot sb1("Hello Bello");
 	// sb1.getCharge(); protected, ezert inaccessible kivulrol
+	FakeHuman fh("Tisztara Ember", "062255AB");
+	Human hum("Igazi Ember", "252525PK");
 
 	ewe1.whatsYourName();
 	rob1.whatsYourName();
 	sb1.whatsYourName();
+	fh.whatsYourName();
+	hum.whatsYourName();
 
 	char c;
 	std::cin >> c;

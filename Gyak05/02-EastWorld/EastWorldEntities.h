@@ -64,4 +64,25 @@ public:
 	}
 };
 
+class BehavesLikeHuman { // nem szarmazik EastWorldEntitybol, ld. lentebb, h miert
+public:
+	BehavesLikeHuman(std::string nid) : nationalid(nid) {}
+private:
+	const std::string nationalid;
+};
+
+class FakeHuman : public Robot, BehavesLikeHuman {
+	// megj: BehavesLikeHuman azert nem szarmazik EastWorldEntitybol, mert
+	// akkor Roboton es BehavesLikeHumanen keresztul FakeHuman ket kulonbozo
+	// EastWorldEntity-t is tartalmazna (hires diamond shape problem)
+	// Ez tulmutat a targy keretein, de veszelyes mert akkor 2 name lenne pl.
+public:
+	FakeHuman(std::string name, std::string nid) : Robot(name), BehavesLikeHuman(nid) {}
+};
+
+class Human : public EastWorldEntity, BehavesLikeHuman {
+public:
+	Human(std::string name, std::string nid) : EastWorldEntity(name), BehavesLikeHuman(nid) {}
+};
+
 #endif // !EAST_WORLD_ENTITIES_HPP
