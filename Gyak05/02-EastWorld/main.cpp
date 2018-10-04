@@ -10,6 +10,7 @@ int main() {
 	// std::cout << ewe1.name << std::endl; name private, vagyis nem hozzaferheto kivulrol
 	Robot rob1("Robi");
 	ServantBot sb1("Hello Bello");
+	// sb1.getCharge(); protected, ezert inaccessible kivulrol
 
 	ewe1.whatsYourName();
 	rob1.whatsYourName();

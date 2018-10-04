@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <ctime>
 
 class EastWorldEntity {
 public:
@@ -28,9 +29,25 @@ public:
 	// minden robot objektum tartalmaz egy Entity-t is a mem.teruleten
 	//tehat az entity-t is letre kell hozni
 	Robot(const std::string name) : EastWorldEntity(name) {
-		batteryCharge = 10;
+		std::srand(std::clock()); //ha kikommentelem, mindig ugyanannyi lesz az elso, masodik, stb. charge. Ki lehet probalni!
+		batteryCharge = std::rand() % maximumCharge;
 	}
-	void recharge(int charge) {};
+	void recharge(int charge) {
+		if (charge > maximumCharge) {
+			batteryCharge = maximumCharge;
+		}
+		else {
+			if (charge > 0) batteryCharge = charge;
+		}
+	};
+protected: // ez es szarmazo osztalyok elerik, de kivulrol nem lehet
+	// ezzel szemben: public: szarmazo osztalyokbol ES kivulrol is elerheto
+	// ezzel szemben: private: sem szarmazo osztalyokbol, sem kivulrol NEM elerheto
+	// Stroustrup: protectedet csak fuggvenyekre hasznaljunk. Valtozoknal mindig kerdes, hogy miert protected??
+	// ha protected -> ki fogja irni? Ha senki, miert protected?
+	int getCharge() {
+		return batteryCharge;
+	}
 private:
 	static const int maximumCharge = 100;
 	int batteryCharge; // if zero, needs to recharge!
@@ -43,7 +60,7 @@ public:
 	void whatsYourName() { //a szuloben is van ilyen fv, attol fugg, melyiket hivjuk meg, h melyik fut le
 		// name sajnos private
 		// std::cout << "Hi Master, my name is " << name << "... what can I do for you?" << std::endl;
-		std::cout << "Hi, I'm a servant bot, but I forgot my name." << std::endl;
+		std::cout << "Hi, I'm a servant bot, but I forgot my name. However, I can tell you my battery level is: " << getCharge() << std::endl;
 	}
 };
 
