@@ -7,10 +7,7 @@
 
 class EastWorldEntity {
 public:
-	bool isServantBot;
-	EastWorldEntity(const std::string n) : name(n) {
-		isServantBot = false;
-	}
+	EastWorldEntity(const std::string n) : name(n) {}
 	void whatsYourName() {
 		std::cout << "My name is " << name << "... hello!" << std::endl;
 	}
@@ -59,11 +56,7 @@ private:
 
 class ServantBot : public Robot {
 public:
-	int valami;
-	ServantBot(std::string name) : Robot(name) {
-		isServantBot = true; // Robot constructor utan fut le! Ezert allithato (bar ritka randa megoldas)
-		valami = 5;
-	}
+	ServantBot(std::string name) : Robot(name) {}
 	void whatsYourName() { //a szuloben is van ilyen fv, attol fugg, melyiket hivjuk meg, h melyik fut le
 		// name sajnos private
 		// std::cout << "Hi Master, my name is " << name << "... what can I do for you?" << std::endl;
