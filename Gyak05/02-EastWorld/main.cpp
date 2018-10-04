@@ -37,8 +37,13 @@ int main() {
 		// hanem mondjuk ServantBot-ok vagy FakeHuman-ok is lehetnek.
 
 		//csunya megoldas a problemara
-		if ((*i)->isServantBot) {
+		if (!(*i)->isServantBot) {
+			// problema: a static cast mindig megcsinalja amit kerunk
+			// (ha egymasbol szarmaznak az osztalyok es pointerek kozott kasztolunk)
 			(static_cast<ServantBot*>(*i))->whatsYourName();
+			//itt elrontottuk a feltelt, de static_cast akkor is lefut!!
+			std::cout << "my value of valami is " << (static_cast<ServantBot*>(*i))->valami << std::endl;
+			//az elozo sor csak "szemetet" ir ki, ami a memoriaban benne van (ha nem hasal el a program segfault miatt)
 		}
 		else {
 			(*i)->whatsYourName();

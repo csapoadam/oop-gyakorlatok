@@ -59,8 +59,10 @@ private:
 
 class ServantBot : public Robot {
 public:
+	int valami;
 	ServantBot(std::string name) : Robot(name) {
 		isServantBot = true; // Robot constructor utan fut le! Ezert allithato (bar ritka randa megoldas)
+		valami = 5;
 	}
 	void whatsYourName() { //a szuloben is van ilyen fv, attol fugg, melyiket hivjuk meg, h melyik fut le
 		// name sajnos private
