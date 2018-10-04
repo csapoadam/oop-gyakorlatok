@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "EastWorldEntities.h"
 #include <iostream>
+#include <vector>
 
 int main() {
 	EastWorldEntity ewe1("Who Am I");
@@ -19,6 +20,22 @@ int main() {
 	sb1.whatsYourName();
 	fh.whatsYourName();
 	hum.whatsYourName();
+
+	std::vector<EastWorldEntity*> EastWorldEntityCollection;
+	EastWorldEntityCollection.push_back(&ewe1);
+	EastWorldEntityCollection.push_back(&rob1);
+	EastWorldEntityCollection.push_back(&sb1);
+	EastWorldEntityCollection.push_back(&fh);
+	EastWorldEntityCollection.push_back(&hum);
+
+	std::cout << "introduce entities through vector" << std::endl;
+	for (std::vector<EastWorldEntity*>::iterator i = EastWorldEntityCollection.begin();
+		i < EastWorldEntityCollection.end(); i++) {
+		(*i)->whatsYourName();
+		// sajnos sb1-re is EastWorldEntity whatsYourName() metodusa hivodik meg
+		// a futtatasi kornyezet ugyanis nem tudja, hogy ezek valojaban nem biztos, hogy tenylegesen EastWorldEntity-k
+		// hanem mondjuk ServantBot-ok vagy FakeHuman-ok is lehetnek.
+	}
 
 	char c;
 	std::cin >> c;
