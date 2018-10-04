@@ -2,7 +2,17 @@
 #include "avltree.h"
 #include <vector>
 #include <iostream>
+#include <ctime>
 
+AvlTree& perturbTreeCopy(AvlTree& tree) {
+	tree.insert(555);
+	return tree;
+}
+
+AvlTree&& perturbTreeMove(AvlTree&& tree) {
+	tree.insert(555);
+	return std::move(tree);
+}
 
 int main()
 {
@@ -51,6 +61,36 @@ int main()
 	mytree4.printTreeAsList();
 	mytree5.printTreeAsList();
 
+	clock_t begin, end;
+	std::srand(std::clock());
+	const int numiters = 100;
+	const int numelems = 10000;
+
+	AvlTree testTree;
+	for (int i=0; i<numelems; i++) {
+		testTree.insert(std::rand() % (100 * numelems));
+	}
+
+	std::cout << "starting to profile" << std::endl;
+	begin = clock();
+	for (int i = 0; i < numiters; i++) {
+		AvlTree res(testTree);
+		res = perturbTreeCopy(res);
+	}
+	end = clock();
+	std::cout << "time for " << numiters << " run(s) of perturbTreeCopy() = " <<
+		double(end - begin) / CLOCKS_PER_SEC << std::endl;
+
+	begin = clock();
+	for (int i = 0; i < numiters; i++) {
+		AvlTree res(testTree);
+		res = perturbTreeMove(std::move(res)); // u.az mint res = perturbTreeMove(AvlTree(testTree));
+	}
+	end = clock();
+	std::cout << "time for " << numiters << " run(s) of perturbTreeMove() = " <<
+		double(end - begin) / CLOCKS_PER_SEC << std::endl;
+	// ha numiters = 100, akkor copy ideje 0.012 sec, move ideje pedig 0.005
+	// ha numiters=1000, akkor copy ideje 0.84 sec, move ideje pedig 0.39
 
 	// what if
 	int mytreeInt = 5;
