@@ -31,10 +31,18 @@ int main() {
 	std::cout << "introduce entities through vector" << std::endl;
 	for (std::vector<EastWorldEntity*>::iterator i = EastWorldEntityCollection.begin();
 		i < EastWorldEntityCollection.end(); i++) {
-		(*i)->whatsYourName();
+		// (*i)->whatsYourName();
 		// sajnos sb1-re is EastWorldEntity whatsYourName() metodusa hivodik meg
 		// a futtatasi kornyezet ugyanis nem tudja, hogy ezek valojaban nem biztos, hogy tenylegesen EastWorldEntity-k
 		// hanem mondjuk ServantBot-ok vagy FakeHuman-ok is lehetnek.
+
+		//csunya megoldas a problemara
+		if ((*i)->isServantBot) {
+			(static_cast<ServantBot*>(*i))->whatsYourName();
+		}
+		else {
+			(*i)->whatsYourName();
+		}
 	}
 
 	char c;
