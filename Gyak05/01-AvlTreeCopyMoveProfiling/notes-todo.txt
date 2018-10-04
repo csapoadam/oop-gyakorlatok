@@ -1,0 +1,15 @@
+Notes: todo in class
+
+1. make printing of layers more efficient (don't start from root at each iteration)
+2. better - adaptive - spacing by taking into account number of digits in next key
+3. implement rotate left and fix balancing issues
+4. try to print tree with ... 14, 16, 17, 18, 19, 20 - see if it's well balanced
+5. check whether copies are deep or shallow...
+6. make copies deep by implementing copy constructor
+7. note that it matters whether deep copy is initialization or assignment... if assignment,
+need to implement copy assignment too, in order for deep copy to work
+8. copy assignments use the swap function (first we use copy constructor to make sure memory
+allocation doesn't fail... then swap)
+9. but swap function will work only if move semantics is also implemented -> implement move constructor
+10. problem: swap uses move assignment, not constructor. So need to implement that, otherwise
+wrong functions are called and stack overflow occurs
