@@ -57,9 +57,11 @@ AvlTree& AvlTree::operator=(const AvlTree& other) {
 }
 
 AvlTree& AvlTree::operator=(AvlTree&& other) {
-	std::cout << "move assignment called.. calling swap" << std::endl;
-	std::swap(root, other.root);
-	std::cout << "swap ended in move ass." << std::endl;
+	std::cout << "move assignment called.." << std::endl;
+        delete root;
+        root = other.root;
+        other.root = nullptr;
+	std::cout << "move ass. finished" << std::endl;
 	return *this;
 }
 
