@@ -5,6 +5,8 @@
 #include <string>
 #include <ctime>
 
+namespace EastWorld {
+
 class EastWorldEntity {
 public:
 	EastWorldEntity(const std::string n) : name(n) {}
@@ -84,5 +86,7 @@ class Human : public EastWorldEntity, BehavesLikeHuman {
 public:
 	Human(std::string name, std::string nid) : EastWorldEntity(name), BehavesLikeHuman(nid) {}
 };
+
+}
 
 #endif // !EAST_WORLD_ENTITIES_HPP

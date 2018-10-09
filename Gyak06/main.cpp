@@ -6,6 +6,8 @@
 #include <iostream>
 #include <vector>
 
+using namespace EastWorld;
+
 int main() {
 	EastWorldEntity ewe1("Who Am I");
 	// std::cout << ewe1.name << std::endl; name private, vagyis nem hozzaferheto kivulrol
