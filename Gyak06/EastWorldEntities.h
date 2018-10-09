@@ -9,14 +9,10 @@ namespace EastWorld {
 
 class EastWorldEntity {
 public:
-	EastWorldEntity(const std::string n) : name(n) {}
-	virtual void whatsYourName() {
-		std::cout << "My name is " << name << "... hello!" << std::endl;
+	virtual const std::string getName() = 0; //pure virtual fv: EastWorldEntity mostantol absztrakt osztaly - nem peldanyosithato!
+	virtual void whatsYourName() { // absztrakt osztalynak lehet nem pure virtual fuggvenye is, de ahhoz h absztrakt legyen, legalabb 1 pure virtual fv kell
+		std::cout << "My name is " << getName() << "... hello!" << std::endl;
 	}
-private:
-	const std::string name;
-	//szemelyigazolvany szam nincs, mert ilyen a robotoknak altalaban nincs
-	//(kiveve fake humaneknek)
 };
 
 class Robot : public EastWorldEntity { // public orokles, mert Robot egyfajta Entity!!
@@ -30,9 +26,12 @@ public:
 	*/
 	// minden robot objektum tartalmaz egy Entity-t is a mem.teruleten
 	//tehat az entity-t is letre kell hozni
-	Robot(const std::string name) : EastWorldEntity(name) {
+	Robot(const std::string name) : name(name) {
 		std::srand(std::clock()); //ha kikommentelem, mindig ugyanannyi lesz az elso, masodik, stb. charge. Ki lehet probalni!
 		batteryCharge = std::rand() % maximumCharge;
+	}
+	const std::string getName() override {
+		return name;
 	}
 	void recharge(int charge) {
 		if (charge > maximumCharge) {
@@ -51,6 +50,7 @@ protected: // ez es szarmazo osztalyok elerik, de kivulrol nem lehet
 		return batteryCharge;
 	}
 private:
+	const std::string name;
 	static const int maximumCharge = 100;
 	int batteryCharge; // if zero, needs to recharge!
 };
@@ -84,7 +84,12 @@ public:
 
 class Human : public EastWorldEntity, BehavesLikeHuman {
 public:
-	Human(std::string name, std::string nid) : EastWorldEntity(name), BehavesLikeHuman(nid) {}
+	Human(std::string name, std::string nid) : name(name), BehavesLikeHuman(nid) {}
+	const std::string getName() override {
+		return name;
+	}
+private:
+	const std::string name;
 };
 
 }

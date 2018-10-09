@@ -11,7 +11,8 @@
 namespace EW = EastWorld; //namespace alias OK
 
 int main() {
-	EW::EastWorldEntity ewe1("Who Am I"); // igy nem kell mindehol kiirni, hogy EastWorld::valami
+	// absztrakt osztaly nem peldanyosithato!!
+	//EW::EastWorldEntity ewe1("Who Am I"); // igy nem kell mindehol kiirni, hogy EastWorld::valami
 	// std::cout << ewe1.name << std::endl; name private, vagyis nem hozzaferheto kivulrol
 	EW::Robot rob1("Robi");
 	EW::ServantBot sb1("Hello Bello");
@@ -19,14 +20,12 @@ int main() {
 	EW::FakeHuman fh("Tisztara Ember", "062255AB");
 	EW::Human hum("Igazi Ember", "252525PK");
 
-	ewe1.whatsYourName();
 	rob1.whatsYourName();
 	sb1.whatsYourName();
 	fh.whatsYourName();
 	hum.whatsYourName();
 
 	std::vector<EW::EastWorldEntity*> EastWorldEntityCollection;
-	EastWorldEntityCollection.push_back(&ewe1);
 	EastWorldEntityCollection.push_back(&rob1);
 	EastWorldEntityCollection.push_back(&sb1);
 	EastWorldEntityCollection.push_back(&fh);
