@@ -6,16 +6,18 @@
 #include <iostream>
 #include <vector>
 
-using namespace EastWorld;
+// altalaban nem szeretjuk, mert ha tobb namespace-t hasznalunk akkor megintcsak name collisionok lehetnek
+// using namespace EastWorld;
+namespace EW = EastWorld; //namespace alias OK
 
 int main() {
-	EastWorldEntity ewe1("Who Am I");
+	EW::EastWorldEntity ewe1("Who Am I"); // igy nem kell mindehol kiirni, hogy EastWorld::valami
 	// std::cout << ewe1.name << std::endl; name private, vagyis nem hozzaferheto kivulrol
-	Robot rob1("Robi");
-	ServantBot sb1("Hello Bello");
+	EW::Robot rob1("Robi");
+	EW::ServantBot sb1("Hello Bello");
 	// sb1.getCharge(); protected, ezert inaccessible kivulrol
-	FakeHuman fh("Tisztara Ember", "062255AB");
-	Human hum("Igazi Ember", "252525PK");
+	EW::FakeHuman fh("Tisztara Ember", "062255AB");
+	EW::Human hum("Igazi Ember", "252525PK");
 
 	ewe1.whatsYourName();
 	rob1.whatsYourName();
@@ -23,7 +25,7 @@ int main() {
 	fh.whatsYourName();
 	hum.whatsYourName();
 
-	std::vector<EastWorldEntity*> EastWorldEntityCollection;
+	std::vector<EW::EastWorldEntity*> EastWorldEntityCollection;
 	EastWorldEntityCollection.push_back(&ewe1);
 	EastWorldEntityCollection.push_back(&rob1);
 	EastWorldEntityCollection.push_back(&sb1);
@@ -31,7 +33,7 @@ int main() {
 	EastWorldEntityCollection.push_back(&hum);
 
 	std::cout << "introduce entities through vector" << std::endl;
-	for (std::vector<EastWorldEntity*>::iterator i = EastWorldEntityCollection.begin();
+	for (std::vector<EW::EastWorldEntity*>::iterator i = EastWorldEntityCollection.begin();
 		i < EastWorldEntityCollection.end(); i++) {
 		// sajnos sb1-re is EastWorldEntity whatsYourName() metodusa hivodik meg
 		// a futtatasi kornyezet ugyanis nem tudja, hogy ezek valojaban nem biztos, hogy tenylegesen EastWorldEntity-k
