@@ -41,8 +41,8 @@ protected: // ez es szarmazo osztalyok elerik, de kivulrol nem lehet
 	int getCharge() {
 		return batteryCharge;
 	}
-	const int getMaximumCharge() {
-		return maximumCharge;
+	bool isDepleted() {
+		return (static_cast<double>(getCharge()) / maximumCharge) < depletionThreshold;
 	}
 	void recharge() {
 		int potentialNewBatteryCharge = static_cast<int>(((std::rand() % 100) + 100) * batteryCharge / 100);
@@ -51,6 +51,8 @@ protected: // ez es szarmazo osztalyok elerik, de kivulrol nem lehet
 private:
 	const std::string name;
 	static const int maximumCharge = 100;
+	// static const double depletionThreshold = 0.2; hopp ez nem mukodik! Ez az osztaly deklaracioja, static tagot pedig definialni kell. A const intek kivetelek
+	static const double depletionThreshold;
 	int batteryCharge; // if zero, needs to recharge!
 };
 
@@ -90,7 +92,7 @@ public:
 		recharge();
 	}
 	void whatsYourName() override {
-		if (static_cast<double>(getCharge()) / getMaximumCharge() < 0.2) { //szamlalot doublera kasztoljuk kulonben 0 lesz az eredmeny...
+		if (isDepleted()) { //igy sokkal szebb, mert ezt a funkcionalitast hadd dontse el a Robot!
 			std::cout << "My name is " << getName() << "... hello! I am hungry!" << std::endl;
 		} else {
 			std::cout << "My name is " << getName() << "... hello! Don't worry, I've had my fair share of food!" << std::endl;
@@ -112,7 +114,7 @@ public:
 		hungerLevel = 1.0;
 	}
 	void whatsYourName() override {
-		if (hungerLevel < 0.2) { //szamlalot doublera kasztoljuk kulonben 0 lesz az eredmeny...
+		if (hungerLevel < hungerThreshold) {
 			std::cout << "My name is " << getName() << "... hello! I am hungry!" << std::endl;
 		}
 		else {
@@ -122,7 +124,11 @@ public:
 private:
 	const std::string name;
 	double hungerLevel; // from 0 to 1
+	static const double hungerThreshold;
 };
+
+const double Robot::depletionThreshold = 0.2; // ezeket ne szanaszet a kodban drotozzuk be!
+const double Human::hungerThreshold = 0.2; // ezeket muszaj a classok deklaracioja utan definialni kulonben a fordito meg nem tudja mi a Robot es Human
 
 }
 
