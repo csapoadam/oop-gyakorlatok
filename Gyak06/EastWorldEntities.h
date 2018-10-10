@@ -41,6 +41,13 @@ protected: // ez es szarmazo osztalyok elerik, de kivulrol nem lehet
 	int getCharge() {
 		return batteryCharge;
 	}
+	const int getMaximumCharge() {
+		return maximumCharge;
+	}
+	void recharge() {
+		int potentialNewBatteryCharge = static_cast<int>(((std::rand() % 100) + 100) * batteryCharge / 100);
+		batteryCharge = potentialNewBatteryCharge > maximumCharge ? maximumCharge : potentialNewBatteryCharge;
+	}
 private:
 	const std::string name;
 	static const int maximumCharge = 100;
@@ -61,6 +68,12 @@ public:
 class BehavesLikeHuman { // nem szarmazik EastWorldEntitybol, ld. lentebb, h miert
 public:
 	BehavesLikeHuman(std::string nid) : nationalid(nid) {}
+	const std::string getNationalId() {
+		return nationalid;
+	}
+	// jo lenne, ha BehavesLikeHuman se lenne peldanyosithato. Ehhez kell egy pure virtual fv.
+	// kicsit most visszafele gondolkodunk (akkor csinaljunk abstract base osztalyt, ha van ertelme)... de a pelda kedveert csinaljunk egyet direkt
+	virtual void eat() = 0;
 private:
 	const std::string nationalid;
 };
@@ -71,17 +84,44 @@ class FakeHuman : public Robot, BehavesLikeHuman {
 	// EastWorldEntity-t is tartalmazna (hires diamond shape problem)
 	// Ez tulmutat a targy keretein, de veszelyes mert akkor 2 name lenne pl.
 public:
-	FakeHuman(std::string name, std::string nid) : Robot(name), BehavesLikeHuman(nid) {}
+	FakeHuman(std::string name, std::string nid) : Robot(name), BehavesLikeHuman(nid) {} //attol h abstract base class, meg mindig meghivhato BehavesLikeHuman(nid)!
+	// (BehavesLikeHumant ekkor nem peldanyositjuk, hanem az objektum egy reszet inicializaljuk!!)
+	void eat() override {
+		recharge();
+	}
+	void whatsYourName() override {
+		if (static_cast<double>(getCharge()) / getMaximumCharge() < 0.2) { //szamlalot doublera kasztoljuk kulonben 0 lesz az eredmeny...
+			std::cout << "My name is " << getName() << "... hello! I am hungry!" << std::endl;
+		} else {
+			std::cout << "My name is " << getName() << "... hello! Don't worry, I've had my fair share of food!" << std::endl;
+		}
+	}
+private:
+	const std::string nationalid;
 };
 
 class Human : public EastWorldEntity, BehavesLikeHuman {
 public:
-	Human(std::string name, std::string nid) : name(name), BehavesLikeHuman(nid) {}
+	Human(std::string name, std::string nid) : name(name), BehavesLikeHuman(nid) {
+		hungerLevel = 1.0;
+	}
 	const std::string getName() override {
 		return name;
 	}
+	void eat() override {
+		hungerLevel = 1.0;
+	}
+	void whatsYourName() override {
+		if (hungerLevel < 0.2) { //szamlalot doublera kasztoljuk kulonben 0 lesz az eredmeny...
+			std::cout << "My name is " << getName() << "... hello! I am hungry!" << std::endl;
+		}
+		else {
+			std::cout << "My name is " << getName() << "... hello! Don't worry, I've had my fair share of food!" << std::endl;
+		}
+	}
 private:
 	const std::string name;
+	double hungerLevel; // from 0 to 1
 };
 
 }
