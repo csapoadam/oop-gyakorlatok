@@ -18,14 +18,6 @@ public:
 class Robot : public EastWorldEntity { // public orokles, mert Robot egyfajta Entity!!
 									   // (interfeszt oroklunk, nem implementaciot hasznalunk fel ujra / rejtunk el)
 public:
-	/*
-	Robot(const std::string name) {
-		this->name = name; //nem jo, mert konstanst valtozot inicializalni kell!!
-		//Raadasul name a szuloben private is szoval... innen nem elerheto
-	};
-	*/
-	// minden robot objektum tartalmaz egy Entity-t is a mem.teruleten
-	//tehat az entity-t is letre kell hozni
 	Robot(const std::string name) : name(name) {
 		std::srand(std::clock()); //ha kikommentelem, mindig ugyanannyi lesz az elso, masodik, stb. charge. Ki lehet probalni!
 		batteryCharge = std::rand() % maximumCharge;
@@ -62,7 +54,7 @@ public:
 	void whatsYourName() override { //override nem kotelezo, de ha elirjuk a szignaturat, pl. intet ad vissza, akkor a fordito szol! ezert az override hasznos
 		// name sajnos private
 		// std::cout << "Hi Master, my name is " << name << "... what can I do for you?" << std::endl;
-		std::cout << "Hi, I'm a servant bot, but I forgot my name. However, I can tell you my battery level is: " << getCharge() << std::endl;
+		std::cout << "Hi Master, my name is " << getName() << "... and my battery charge is " << getCharge() << ". What can I do for you ? " << std::endl;
 	}
 };
 
