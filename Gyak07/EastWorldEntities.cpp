@@ -19,7 +19,7 @@ void EastWorldEntity::whatsYourName() {
 	std::cout << "My name is " << getName() << "... hello!" << std::endl;
 }
 
-Robot::Robot(const std::string) : name(name) {
+Robot::Robot(const std::string name) : name(name) {
 	setChargeRandom(); // szep!
 }
 
