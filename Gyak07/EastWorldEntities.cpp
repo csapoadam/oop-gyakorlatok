@@ -46,6 +46,13 @@ bool Robot::isDepleted() {
 	// peldaul modellezhetnenk, hogy erintkezesi hiba van, es az esetek kis szazalekaban akkor is depleted, ha valojaban az akksi nem az.
 }
 
+void Robot::tick() {
+	std::cout << "calling battery tick for robot with name " << name << ". ";
+	Battery::tick(); //meg kell mondani, hogy melyik tick-et hivjunk meg, kulonben rekurziv lehet...
+	// De esetunkben nem ez a problema, Robot osztalyban 2 tick() van... az egyik public a masik privat ezert ez a definicio sem feltetlenul egyertelmu
+	// (persze a gyakorlatban atengedheti a fordito, mivel privat fv-t nem lehet amugy sem feluldefinialni...
+}
+
 ServantBot::ServantBot(std::string name) : Robot(name) {}
 
 void ServantBot::whatsYourName() {
@@ -124,6 +131,12 @@ void Battery::setCharge(int charge) {
 void Battery::chargeForRandomTime() {
 	int potentialNewBatteryCharge = static_cast<int>(((std::rand() % 100) + 100) * batteryCharge / 100);
 	batteryCharge = potentialNewBatteryCharge > maximumCharge ? maximumCharge : potentialNewBatteryCharge;
+}
+
+void Battery::tick() {
+	std::cout << "battery with charge " << batteryCharge << " ticked."; // teszteles celjabol
+	batteryCharge = batteryCharge > 0 ? batteryCharge - 1 : 0;
+	std::cout << " New charge is: " << batteryCharge << std::endl;
 }
 
 

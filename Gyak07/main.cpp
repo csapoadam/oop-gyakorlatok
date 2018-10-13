@@ -18,18 +18,21 @@ int main() {
 	EW::ServantBot sb1("Hello Bello");
 	// sb1.getCharge(); protected, ezert inaccessible kivulrol
 	EW::FakeHuman fh("Tisztara Ember", "062255AB");
-	EW::Human hum("Igazi Ember", "252525PK");
+	// EW::Human hum("Igazi Ember", "252525PK"); // egyelore nem valositottuk meg Human osztalyban a tick() fv-t ezert absztrakt osztaly. Ha nincs kikommentezve nem fordul le
 
 	rob1.whatsYourName();
 	sb1.whatsYourName();
 	fh.whatsYourName();
-	hum.whatsYourName();
+	// hum.whatsYourName(); Human osztaly most absztrakt
+
+	rob1.tick();
+	rob1.whatsYourName();
 
 	std::vector<EW::EastWorldEntity*> EastWorldEntityCollection;
 	EastWorldEntityCollection.push_back(&rob1);
 	EastWorldEntityCollection.push_back(&sb1);
 	EastWorldEntityCollection.push_back(&fh);
-	EastWorldEntityCollection.push_back(&hum);
+	// EastWorldEntityCollection.push_back(&hum); // Human osztaly most absztrakt
 
 	std::cout << "introduce entities through vector" << std::endl;
 	for (std::vector<EW::EastWorldEntity*>::iterator i = EastWorldEntityCollection.begin();
@@ -42,5 +45,5 @@ int main() {
 
 	char c;
 	std::cin >> c;
-    return 0;
+	return 0;
 }
