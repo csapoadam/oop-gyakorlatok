@@ -38,6 +38,27 @@ private:
 	C society;
 };
 
+template<class C>
+EastWorldSociety<C>::EastWorldSociety(C container) {
+	society = container;
+}
+
+template<class C>
+void EastWorldSociety<C>::addEntity(EastWorldEntity* ewe) {
+	society.push_back(ewe); // ez csak azert mukodik, mert most konkret esetben vektorral hasznaljuk
+
+}
+
+template<class C>
+void EastWorldSociety<C>::tickEntities() {
+	// ez csak azert mukodik, mert most konkret esetben vektorral hasznaljuk...
+	for (std::vector<EW::EastWorldEntity*>::iterator i = EastWorldEntityCollection.begin();
+		i < EastWorldEntityCollection.end(); i++) {
+		(*i)->whatsYourName();
+		(*i)->tick();
+	}
+}
+
 
 
 // From Scott Meyers'book :
