@@ -46,10 +46,14 @@ bool Robot::isDepleted() {
 	// peldaul modellezhetnenk, hogy erintkezesi hiba van, es az esetek kis szazalekaban akkor is depleted, ha valojaban az akksi nem az.
 }
 
-void Robot::tick(double scalingfactor) {
-	Battery::tick(scalingfactor); //meg kell mondani, hogy melyik tick-et hivjunk meg, kulonben rekurziv lehet...
+void Robot::tick() {
+	Battery::tick(); //meg kell mondani, hogy melyik tick-et hivjunk meg, kulonben rekurziv lehet...
 	// De esetunkben nem ez a problema, Robot osztalyban 2 tick() van... az egyik public a masik privat ezert ez a definicio sem feltetlenul egyertelmu
 	// (persze a gyakorlatban atengedheti a fordito, mivel privat fv-t nem lehet amugy sem feluldefinialni...
+}
+
+void Robot::tickWithScaling(double scaling) {
+	Battery::tick(scaling); //meg kell mondani, hogy melyik tick-et hivjunk meg, kulonben rekurziv lehet...
 }
 
 ServantBot::ServantBot(std::string name) : Robot(name) {}
@@ -88,8 +92,8 @@ void FakeHuman::eatUponInvitation() {
 	std::cout << "Hello I'm " << getName() << ". I am growing heavy indeed. My foodweight is now " << foodWeight << std::endl;
 }
 
-void FakeHuman::tick(double scalingfactor) {
-	Robot::tick(1.0 + foodWeight);
+void FakeHuman::tick() {
+	Robot::tickWithScaling(1.0 + foodWeight);
 }
 
 Human::Human(std::string name, std::string nid) : name(name), BehavesLikeHuman(nid) {
@@ -106,10 +110,10 @@ void Human::eat() {
 
 void Human::whatsYourName() {
 	if (hungerLevel < hungerThreshold) {
-		std::cout << "My name is " << getName() << "... hello! I am hungry!" << std::endl;
+		std::cout << "My name is " << getName() << "... hello! I am hungry! My hunger level is " << hungerLevel << std::endl;
 	}
 	else {
-		std::cout << "My name is " << getName() << "... hello! Don't worry, I've had my fair share of food!" << std::endl;
+		std::cout << "My name is " << getName() << "... hello! Don't worry, I've had my fair share of food! My hunger level is " << hungerLevel << std::endl;
 	}
 }
 
@@ -126,7 +130,7 @@ void Human::inviteToEat(EastWorldEntity* ewe) {
 	}
 }
 
-void Human::tick(double scalingfactor) {
+void Human::tick() {
 	hungerLevel *= 0.9; // az emberek csak eheznek
 }
 
@@ -147,7 +151,7 @@ void Battery::setChargeRandom() { // De elegans! Hat ez ide tartozik!!
 
 void Battery::setCharge(int charge) {
 	if (charge > maximumCharge) {
-		batteryCharge = maximumCharge;
+		batteryCharge = static_cast<double>(maximumCharge);
 	}
 	else {
 		if (charge > 0) batteryCharge = charge;
@@ -155,8 +159,8 @@ void Battery::setCharge(int charge) {
 }
 
 void Battery::chargeForRandomTime() {
-	int potentialNewBatteryCharge = static_cast<int>(((std::rand() % 100) + 100) * batteryCharge / 100);
-	batteryCharge = potentialNewBatteryCharge > maximumCharge ? maximumCharge : potentialNewBatteryCharge;
+	double potentialNewBatteryCharge = static_cast<double>(((std::rand() % 100) + 100) * batteryCharge / 100);
+	batteryCharge = potentialNewBatteryCharge > maximumCharge ? static_cast<double>(maximumCharge) : potentialNewBatteryCharge;
 }
 
 void Battery::tick(double scalingfactor) {

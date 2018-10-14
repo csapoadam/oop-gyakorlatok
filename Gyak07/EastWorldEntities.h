@@ -16,14 +16,14 @@ public:
 private:
 	static const int maximumCharge;
 	static const double depletionThreshold;
-	int batteryCharge; // if zero, needs to recharge!
+	double batteryCharge; // if less than 0.01, needs to recharge!
 };
 
 class EastWorldEntity {
 public:
 	virtual const std::string getName() = 0; //pure virtual fv: EastWorldEntity mostantol absztrakt osztaly - nem peldanyosithato!
 	virtual void whatsYourName();
-	virtual void tick(double scalingfactor = 1.0) = 0; // a robotok es emberek is oregszenek, barmit is jelentsen ez. Pure virtual mert itt nincs ertelme implementalni - nem tudjuk emberrol vagy robotrol van szo!
+	virtual void tick() = 0; // a robotok es emberek is oregszenek, barmit is jelentsen ez. Pure virtual mert itt nincs ertelme implementalni - nem tudjuk emberrol vagy robotrol van szo!
 };
 
 // From Scott Meyers'book :
@@ -37,8 +37,8 @@ class Robot : public EastWorldEntity, private Battery { // public orokles, mert 
 public:
 	Robot(const std::string name);
 	const std::string getName() override;
-	void tick(double scalingfactor = 1.0); // Robot Battery-bol is orokol, ezert 2 tick fv lesz! Ellenben a Battery tick() fv-e itt privat es mas scope-ban is van
-	// void recharge(int charge); erre nincs is szukseg, nem is hasznaltuk...
+	void tick(); // Robot Battery-bol is orokol, ezert 2 tick fv lesz! Ellenben a Battery tick() fv-e itt privat es mas scope-ban is van
+	void tickWithScaling(double scaling); // nem elegans, h most minden tick() fv-nek kell scaling... ez nem jo, inkabb csinaljunk jobb interfeszt!
 protected: // ez es szarmazo osztalyok elerik, de kivulrol nem lehet
        // ezzel szemben: public: szarmazo osztalyokbol ES kivulrol is elerheto
        // ezzel szemben: private: sem szarmazo osztalyokbol, sem kivulrol NEM elerheto
@@ -79,7 +79,7 @@ public:
 	void eat() override;
 	void eatUponInvitation(); // ha egy ember meghivja, muszaj ennie...
 	void whatsYourName() override;
-	void tick(double scalingfactor = 1.0) override; // nagyobb foodweight eseten gyorsabban egy ideig gyorsabban merul
+	void tick() override; // nagyobb foodweight eseten gyorsabban egy ideig gyorsabban merul
 private:
 	const std::string nationalid;
 	double foodWeight; // ha egy ember meghivja, muszaj ennie... de mivel emeszteni nem tud, magaval kell cipelnie az extra terhet, amit megevett -> gyorsabban merul
@@ -92,7 +92,7 @@ public:
 	void eat() override;
 	void inviteToEat(EastWorldEntity*); // egy ember meghivhatja a masik embert (vagy FakeHuman-t) enni
 	void whatsYourName() override;
-	void tick(double scalingfactor = 1.0) override;
+	void tick() override;
 private:
 	const std::string name;
 	double hungerLevel; // from 0 to 1
