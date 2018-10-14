@@ -24,6 +24,8 @@ public:
 	virtual const std::string getName() = 0; //pure virtual fv: EastWorldEntity mostantol absztrakt osztaly - nem peldanyosithato!
 	virtual void whatsYourName();
 	virtual void tick() = 0; // a robotok es emberek is oregszenek, barmit is jelentsen ez. Pure virtual mert itt nincs ertelme implementalni - nem tudjuk emberrol vagy robotrol van szo!
+protected:
+	static const double depletionConstant;
 };
 
 // From Scott Meyers'book :

@@ -14,6 +14,7 @@ namespace EastWorld {
 const int Battery::maximumCharge = 100;
 const double Battery::depletionThreshold = 0.2; // ezeket ne szanaszet a kodban drotozzuk be!
 const double Human::hungerThreshold = 0.2; // a legszebb, ha itt csinaljuk
+const double EastWorldEntity::depletionConstant = 0.9;
 
 void EastWorldEntity::whatsYourName() {
 	std::cout << "My name is " << getName() << "... hello!" << std::endl;
@@ -94,6 +95,7 @@ void FakeHuman::eatUponInvitation() {
 
 void FakeHuman::tick() {
 	Robot::tickWithScaling(1.0 + foodWeight);
+	foodWeight *= depletionConstant; // legyunk igazsagosak, neha a robot hadd konnyithessen magan
 }
 
 Human::Human(std::string name, std::string nid) : name(name), BehavesLikeHuman(nid) {
@@ -131,7 +133,7 @@ void Human::inviteToEat(EastWorldEntity* ewe) {
 }
 
 void Human::tick() {
-	hungerLevel *= 0.9; // az emberek csak eheznek
+	hungerLevel *= depletionConstant; // az emberek csak eheznek
 }
 
 int Battery::getCharge() {
