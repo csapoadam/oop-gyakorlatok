@@ -28,6 +28,18 @@ protected:
 	static const double depletionConstant;
 };
 
+template<class C> // C barmilyen osztaly lehet, ami szupportalja az interfeszt. Kulcs dolog: a fordito nem tudja, hogy amit beadunk neki, az szupportalja-e! Lehetnek emiatt futasideju crash-ek
+class EastWorldSociety {
+public:
+	EastWorldSociety(C container);
+	void addEntity(EastWorldEntity*);
+	void tickEntities();
+private:
+	C society;
+};
+
+
+
 // From Scott Meyers'book :
 // "Private inheritance is most likely to be a legitimate design strategy when you're dealing with two classes not related by is-a where one either needs access to the protected members of another or needs to redefine one or more its virtual functions."
 // "Private inheritance means is-implemented-in-terms-of. It's usually inferior to composition"

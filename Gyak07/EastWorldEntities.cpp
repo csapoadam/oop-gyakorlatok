@@ -171,6 +171,31 @@ void Battery::tick(double scalingfactor) {
 	std::cout << " New charge is: " << batteryCharge << std::endl;
 }
 
+// ha igy csinaljuk, csunya hibat kapunk a forditotol... Template definicioja mindig u.abban a fajlban kell, h legyen, mint a deklaracioja!!
+// miert? mert ha kivulrol peldanyositjuk a fajlt, annak a másik .cpp fajlnak a forditasakor latszodnia kell a definicionak is
+// de itt a main.cpp csak az EastWorldEntities.h fajlt latja...
+// visszaterve, miert kell latnia? Mert csak azokra a C tipusokra es csak azokat a fv-eket fogja legeneralni, amik nekunk kellenek
+template<class C>
+EastWorldSociety<C>::EastWorldSociety(C container) {
+	society = container;
+}
+
+template<class C>
+void EastWorldSociety<C>::addEntity(EastWorldEntity* ewe) {
+	society.push_back(ewe); // ez csak azert mukodik, mert most konkret esetben vektorral hasznaljuk
+
+}
+
+template<class C>
+void EastWorldSociety<C>::tickEntities() {
+	// ez csak azert mukodik, mert most konkret esetben vektorral hasznaljuk...
+	for (std::vector<EW::EastWorldEntity*>::iterator i = EastWorldEntityCollection.begin();
+		i < EastWorldEntityCollection.end(); i++) {
+		(*i)->whatsYourName();
+		(*i)->tick();
+	}
+}
+
 
 
 };

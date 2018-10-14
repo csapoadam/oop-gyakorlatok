@@ -32,6 +32,15 @@ int main() {
 	rob1.whatsYourName();
 
 	std::vector<EW::EastWorldEntity*> EastWorldEntityCollection;
+	EW::EastWorldSociety<std::vector<EW::EastWorldEntity*> > soc(EastWorldEntityCollection);
+
+	soc.addEntity(&rob1);
+	soc.addEntity(&sb1);
+	soc.addEntity(&fh);
+	soc.addEntity(&hum);
+	soc.addEntity(&hum2);
+
+	/*
 	EastWorldEntityCollection.push_back(&rob1);
 	EastWorldEntityCollection.push_back(&sb1);
 	EastWorldEntityCollection.push_back(&fh);
@@ -63,8 +72,9 @@ int main() {
 		std::cout << "-----" << std::endl;
 		std::cin >> c;
 	}
+	*/
 
-
+	char c;
 	std::cin >> c;
 	return 0;
 }
