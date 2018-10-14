@@ -35,6 +35,7 @@ public:
 	EastWorldSociety(C container);
 	void addEntity(EastWorldEntity*);
 	void tickEntities();
+	void alternativeTickEntities();
 private:
 	C society;
 };
@@ -47,7 +48,6 @@ EastWorldSociety<C>::EastWorldSociety(C container) {
 template<class C>
 void EastWorldSociety<C>::addEntity(EastWorldEntity* ewe) {
 	society.push_back(ewe); // ez csak azert mukodik, mert most konkret esetben vektorral hasznaljuk
-
 }
 
 template<class C>
@@ -65,6 +65,16 @@ void EastWorldSociety<C>::tickEntities() {
 		}
 	}
 }
+
+template<class C>
+void EastWorldSociety<C>::alternativeTickEntities() {
+	int veclen = society.size();
+	for (int i = 0; i < veclen; i++) {
+		std::cout << "society something " << society[i]->getName() << std::endl;
+	}
+}
+
+
 
 
 
