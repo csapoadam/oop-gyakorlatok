@@ -2,6 +2,7 @@
 #define EAST_WORLD_ENTITIES_HPP
 
 #include <string>
+#include <ctime>
 
 namespace EastWorld {
 
@@ -52,10 +53,16 @@ void EastWorldSociety<C>::addEntity(EastWorldEntity* ewe) {
 template<class C>
 void EastWorldSociety<C>::tickEntities() {
 	// ez csak azert mukodik, mert most konkret esetben vektorral hasznaljuk...
-	for (std::vector<EW::EastWorldEntity*>::iterator i = EastWorldEntityCollection.begin();
-		i < EastWorldEntityCollection.end(); i++) {
+	for (std::vector<EW::EastWorldEntity*>::iterator i = society.begin(); // nem a collection hanem society kell...
+		i < society.end(); i++) {
 		(*i)->whatsYourName();
 		(*i)->tick();
+
+		if (Human* hp = dynamic_cast<Human*>(*i)) {
+			if ((std::rand() % 100) - 75 > 0) { // 25 szazalek esely
+				hp->inviteToEat(society[2]); //jujj ez be lett huzalozva
+			}
+		}
 	}
 }
 

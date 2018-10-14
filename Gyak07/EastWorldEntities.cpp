@@ -2,7 +2,6 @@
 #include "EastWorldEntities.h"
 
 #include <iostream>
-#include <ctime>
 
 
 // ennek a fajlnak leginkabb az az ertelme, hogy ha tobb forras fajl includeolja az EastWorldEntities.h-t,

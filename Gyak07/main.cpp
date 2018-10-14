@@ -40,41 +40,12 @@ int main() {
 	soc.addEntity(&hum);
 	soc.addEntity(&hum2);
 
-	/*
-	EastWorldEntityCollection.push_back(&rob1);
-	EastWorldEntityCollection.push_back(&sb1);
-	EastWorldEntityCollection.push_back(&fh);
-	EastWorldEntityCollection.push_back(&hum);
-	EastWorldEntityCollection.push_back(&hum2);
-
-	std::cout << "introduce entities through vector and ticks" << std::endl;
 	char c;
-	std::srand(std::clock());
-	int numTicks = 100;
-	for (int tick = 0; tick < numTicks; tick++) {
-		for (std::vector<EW::EastWorldEntity*>::iterator i = EastWorldEntityCollection.begin();
-			i < EastWorldEntityCollection.end(); i++) {
-			(*i)->whatsYourName();
-			(*i)->tick();
-		}
-		// az esetek feleben az egyik ember meghivja a fakehuman-t, meg a servicebotot
-		if ((std::rand() % 100) - 50 > 0) {
-			int whichHuman = std::rand() % 2;
-			if (whichHuman == 0) {
-				hum.inviteToEat(&fh);
-				hum.inviteToEat(&sb1);
-			} else {
-				hum2.inviteToEat(&fh);
-				hum2.inviteToEat(&sb1);
-			}
-		}
-
-		std::cout << "-----" << std::endl;
+	for (int i = 0; i < 100; i++) {
+		soc.tickEntities();
 		std::cin >> c;
 	}
-	*/
 
-	char c;
 	std::cin >> c;
 	return 0;
 }
