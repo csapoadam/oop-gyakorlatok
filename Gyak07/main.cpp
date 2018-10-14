@@ -31,8 +31,9 @@ int main() {
 	rob1.tick();
 	rob1.whatsYourName();
 
-	std::vector<EW::EastWorldEntity*> EastWorldEntityCollection;
-	EW::EastWorldSociety<std::vector<EW::EastWorldEntity*> > soc(EastWorldEntityCollection);
+	// std::vector<EW::EastWorldEntity*> EastWorldEntityCollection;
+	char probachar = '5';
+	EW::EastWorldSociety<char> soc(probachar); // nem fordul le, mivel char tipusnak nincs push_back, iterator stb. tagja!
 
 	soc.addEntity(&rob1);
 	soc.addEntity(&sb1);
