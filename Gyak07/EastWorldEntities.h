@@ -88,6 +88,7 @@ public:
 	const std::string getName() override;
 	void eat() override;
 	void whatsYourName() override;
+	void tick() override;
 private:
 	const std::string name;
 	double hungerLevel; // from 0 to 1

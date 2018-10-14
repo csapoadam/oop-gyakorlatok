@@ -47,7 +47,6 @@ bool Robot::isDepleted() {
 }
 
 void Robot::tick() {
-	std::cout << "calling battery tick for robot with name " << name << ". ";
 	Battery::tick(); //meg kell mondani, hogy melyik tick-et hivjunk meg, kulonben rekurziv lehet...
 	// De esetunkben nem ez a problema, Robot osztalyban 2 tick() van... az egyik public a masik privat ezert ez a definicio sem feltetlenul egyertelmu
 	// (persze a gyakorlatban atengedheti a fordito, mivel privat fv-t nem lehet amugy sem feluldefinialni...
@@ -102,6 +101,10 @@ void Human::whatsYourName() {
 	else {
 		std::cout << "My name is " << getName() << "... hello! Don't worry, I've had my fair share of food!" << std::endl;
 	}
+}
+
+void Human::tick() {
+	hungerLevel *= 0.9; // az emberek csak eheznek
 }
 
 int Battery::getCharge() {
