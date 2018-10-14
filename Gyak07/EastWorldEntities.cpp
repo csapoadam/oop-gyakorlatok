@@ -46,8 +46,8 @@ bool Robot::isDepleted() {
 	// peldaul modellezhetnenk, hogy erintkezesi hiba van, es az esetek kis szazalekaban akkor is depleted, ha valojaban az akksi nem az.
 }
 
-void Robot::tick() {
-	Battery::tick(); //meg kell mondani, hogy melyik tick-et hivjunk meg, kulonben rekurziv lehet...
+void Robot::tick(double scalingfactor) {
+	Battery::tick(scalingfactor); //meg kell mondani, hogy melyik tick-et hivjunk meg, kulonben rekurziv lehet...
 	// De esetunkben nem ez a problema, Robot osztalyban 2 tick() van... az egyik public a masik privat ezert ez a definicio sem feltetlenul egyertelmu
 	// (persze a gyakorlatban atengedheti a fordito, mivel privat fv-t nem lehet amugy sem feluldefinialni...
 }
@@ -67,12 +67,13 @@ const std::string BehavesLikeHuman::getNationalId() {
 }
 
 FakeHuman::FakeHuman(std::string name, std::string nid) : Robot(name), BehavesLikeHuman(nid) {
-
+	foodWeight = 0.0;
 }
 
 void FakeHuman::eat() {
 	recharge();
 }
+
 void FakeHuman::whatsYourName() {
 	if (isDepleted()) { //igy sokkal szebb, mert ezt a funkcionalitast hadd dontse el a Robot!
 		std::cout << "My name is " << getName() << "... hello! I am hungry!" << std::endl;
@@ -80,6 +81,15 @@ void FakeHuman::whatsYourName() {
 	else {
 		std::cout << "My name is " << getName() << "... hello! Don't worry, I've had my fair share of food!" << std::endl;
 	}
+}
+
+void FakeHuman::eatUponInvitation() {
+	foodWeight += 0.1;
+	std::cout << "Hello I'm " << getName() << ". I am growing heavy indeed. My foodweight is now " << foodWeight << std::endl;
+}
+
+void FakeHuman::tick(double scalingfactor) {
+	Robot::tick(1.0 + foodWeight);
 }
 
 Human::Human(std::string name, std::string nid) : name(name), BehavesLikeHuman(nid) {
@@ -103,7 +113,20 @@ void Human::whatsYourName() {
 	}
 }
 
-void Human::tick() {
+void Human::inviteToEat(EastWorldEntity* ewe) {
+	// ilyenkor az ember maga is eszik
+	eat();
+	// mivel nem tudjuk, mi is az az entity, dynamic castot hasznalunk.
+	// Csak ket eset lehetseges (ServantBot-ot pl. nem lehet meghivni enni, csak az embert, vagy akirol azt hisszuk, hogy az)
+	if (Human* hp = dynamic_cast<Human*>(ewe)) {
+		hp->eat();
+	}
+	else if (FakeHuman* fh = dynamic_cast<FakeHuman*>(ewe)) {
+		fh->eatUponInvitation();
+	}
+}
+
+void Human::tick(double scalingfactor) {
 	hungerLevel *= 0.9; // az emberek csak eheznek
 }
 
@@ -136,9 +159,9 @@ void Battery::chargeForRandomTime() {
 	batteryCharge = potentialNewBatteryCharge > maximumCharge ? maximumCharge : potentialNewBatteryCharge;
 }
 
-void Battery::tick() {
+void Battery::tick(double scalingfactor) {
 	std::cout << "battery with charge " << batteryCharge << " ticked."; // teszteles celjabol
-	batteryCharge = batteryCharge > 0 ? batteryCharge - 1 : 0;
+	batteryCharge = batteryCharge > scalingfactor ? batteryCharge - scalingfactor : 0; // ha scalingfactor = 1.2, nem 1-el csokkentjuk
 	std::cout << " New charge is: " << batteryCharge << std::endl;
 }
 

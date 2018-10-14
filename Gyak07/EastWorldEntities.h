@@ -12,7 +12,7 @@ public:
 	void setChargeRandom();
 	void setCharge(int);
 	void chargeForRandomTime();
-	void tick(); // az akksi minden pillanatban hasznalodik, merul
+	void tick(double scalingfactor = 1.0); // az akksi minden pillanatban hasznalodik, merul. Lehet, h gyorsabban mint egysegnyit
 private:
 	static const int maximumCharge;
 	static const double depletionThreshold;
@@ -23,7 +23,7 @@ class EastWorldEntity {
 public:
 	virtual const std::string getName() = 0; //pure virtual fv: EastWorldEntity mostantol absztrakt osztaly - nem peldanyosithato!
 	virtual void whatsYourName();
-	virtual void tick() = 0; // a robotok es emberek is oregszenek, barmit is jelentsen ez. Pure virtual mert itt nincs ertelme implementalni - nem tudjuk emberrol vagy robotrol van szo!
+	virtual void tick(double scalingfactor = 1.0) = 0; // a robotok es emberek is oregszenek, barmit is jelentsen ez. Pure virtual mert itt nincs ertelme implementalni - nem tudjuk emberrol vagy robotrol van szo!
 };
 
 // From Scott Meyers'book :
@@ -37,7 +37,7 @@ class Robot : public EastWorldEntity, private Battery { // public orokles, mert 
 public:
 	Robot(const std::string name);
 	const std::string getName() override;
-	void tick(); // Robot Battery-bol is orokol, ezert 2 tick fv lesz! Ellenben a Battery tick() fv-e itt privat es mas scope-ban is van
+	void tick(double scalingfactor = 1.0); // Robot Battery-bol is orokol, ezert 2 tick fv lesz! Ellenben a Battery tick() fv-e itt privat es mas scope-ban is van
 	// void recharge(int charge); erre nincs is szukseg, nem is hasznaltuk...
 protected: // ez es szarmazo osztalyok elerik, de kivulrol nem lehet
        // ezzel szemben: public: szarmazo osztalyokbol ES kivulrol is elerheto
@@ -77,9 +77,12 @@ class FakeHuman : public Robot, BehavesLikeHuman {
 public:
 	FakeHuman(std::string name, std::string nid);
 	void eat() override;
+	void eatUponInvitation(); // ha egy ember meghivja, muszaj ennie...
 	void whatsYourName() override;
+	void tick(double scalingfactor = 1.0) override; // nagyobb foodweight eseten gyorsabban egy ideig gyorsabban merul
 private:
 	const std::string nationalid;
+	double foodWeight; // ha egy ember meghivja, muszaj ennie... de mivel emeszteni nem tud, magaval kell cipelnie az extra terhet, amit megevett -> gyorsabban merul
 };
 
 class Human : public EastWorldEntity, BehavesLikeHuman {
@@ -87,8 +90,9 @@ public:
 	Human(std::string name, std::string nid);
 	const std::string getName() override;
 	void eat() override;
+	void inviteToEat(EastWorldEntity*); // egy ember meghivhatja a masik embert (vagy FakeHuman-t) enni
 	void whatsYourName() override;
-	void tick() override;
+	void tick(double scalingfactor = 1.0) override;
 private:
 	const std::string name;
 	double hungerLevel; // from 0 to 1
