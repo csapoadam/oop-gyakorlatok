@@ -25,7 +25,7 @@ int main() {
 	EastWorldEntityCollection.push_back(&ewe1);
 	EastWorldEntityCollection.push_back(&rob1);
 	EastWorldEntityCollection.push_back(&sb1);
-	EastWorldEntityCollection.push_back(&fh); //fh mar csak 1 db EastWorldEntity-t tartalmaz
+	EastWorldEntityCollection.push_back(&fh);
 	EastWorldEntityCollection.push_back(&hum);
 
 	std::cout << "introduce entities through vector" << std::endl;
@@ -37,8 +37,7 @@ int main() {
 		(*i)->whatsYourName(); //kovetkezo oran maskepp megoldjuk!
 	}
 
-
 	char c;
 	std::cin >> c;
-	return 0;
+    return 0;
 }
