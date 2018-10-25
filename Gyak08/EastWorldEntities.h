@@ -71,6 +71,17 @@ private:
 	const std::string nationalid;
 };
 
+// osszefoglaloan: diamond shape problema akkor jon letre, ha az oroklesben gyemant alakzat jon letre
+// nagyszulobol ket szulo szarmazik, a ket szulobol meg egy unoka
+// ekkor ha unokabol meghivjuk nagyszulo X() metodusat, nem egyertelmu a helyet
+// 3 megoldas:
+// a. unokaban is definialunk X() metodust, es az teszi a sajat dolgat, vagy meghivja Szulo1::X() vagy Szulo2::X() fv-eket
+// b. ha az osztalyok polimorfikusak (= van legalabb 1 virtualis fv a nagyszuloben), dinamikus kasztolas mukodhet!
+// c. a legjobb megoldas a virtualis orokles
+// ekkor Szulo 1 : public virtual Nagyszulo
+// ekkor Szulo 2 : public virtual Nagyszulo
+// ekkor Unoka a konstruktorban meghivja Nagyszulo konstruktorat, es csak 1 Nagyszulo lesz benne
+
 class FakeHuman : public Robot, public BehavesLikeHuman {
 	// megj: BehavesLikeHuman azert nem szarmazik EastWorldEntitybol, mert
 	// akkor Roboton es BehavesLikeHumanen keresztul FakeHuman ket kulonbozo
