@@ -82,7 +82,7 @@ private:
 // ekkor Szulo 2 : public virtual Nagyszulo
 // ekkor Unoka a konstruktorban meghivja Nagyszulo konstruktorat, es csak 1 Nagyszulo lesz benne
 
-class FakeHuman : public Robot, public BehavesLikeHuman {
+class FakeHuman : public Robot, BehavesLikeHuman {
 	// megj: BehavesLikeHuman azert nem szarmazik EastWorldEntitybol, mert
 	// akkor Roboton es BehavesLikeHumanen keresztul FakeHuman ket kulonbozo
 	// EastWorldEntity-t is tartalmazna (hires diamond shape problem)

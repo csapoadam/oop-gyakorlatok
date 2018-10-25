@@ -21,7 +21,7 @@ int main() {
 	std::cout << "   ... whatsYourName for fake human casted to robot:" << std::endl;
 	(dynamic_cast<Robot*>(&fh))->whatsYourName();
 	std::cout << "   ... whatsYourName for fake human casted to BehavesLikeHuman:" << std::endl;
-	(dynamic_cast<BehavesLikeHuman*>(&fh))->whatsYourName();
+	// (dynamic_cast<BehavesLikeHuman*>(&fh))->whatsYourName();
 	// hum.whatsYourName(); tovabbra is ambiguous
 	//(dynamic_cast<EastWorldEntity*>(&hum))->whatsYourName(); // nem egyertelmu, mert 2 db EastWorldEntity van benne!
 	std::cout << "   ... whatsYourName for human casted to BehavesLikeHuman:" << std::endl;
@@ -32,7 +32,7 @@ int main() {
 	EastWorldEntityCollection.push_back(&rob1);
 	EastWorldEntityCollection.push_back(&sb1);
 	EastWorldEntityCollection.push_back(dynamic_cast<Robot*>(&fh)); // h mit ir ki, attol fugg, mire kasztolom
-	EastWorldEntityCollection.push_back(dynamic_cast<BehavesLikeHuman*>(&fh));
+	// EastWorldEntityCollection.push_back(dynamic_cast<BehavesLikeHuman*>(&fh));
 	EastWorldEntityCollection.push_back(&hum); // ugy latszik, itt egyertelmu a helyzet
 
 	std::cout << "introduce entities through vector" << std::endl;
