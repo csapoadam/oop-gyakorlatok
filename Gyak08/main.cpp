@@ -18,15 +18,22 @@ int main() {
 	ewe1.whatsYourName();
 	rob1.whatsYourName();
 	sb1.whatsYourName();
-	//fh.whatsYourName();
-	//hum.whatsYourName();
+	std::cout << "   ... whatsYourName for fake human casted to robot:" << std::endl;
+	(dynamic_cast<Robot*>(&fh))->whatsYourName();
+	std::cout << "   ... whatsYourName for fake human casted to BehavesLikeHuman:" << std::endl;
+	(dynamic_cast<BehavesLikeHuman*>(&fh))->whatsYourName();
+	// hum.whatsYourName(); tovabbra is ambiguous
+	//(dynamic_cast<EastWorldEntity*>(&hum))->whatsYourName(); // nem egyertelmu, mert 2 db EastWorldEntity van benne!
+	std::cout << "   ... whatsYourName for human casted to BehavesLikeHuman:" << std::endl;
+	(dynamic_cast<BehavesLikeHuman*>(&hum))->whatsYourName(); // nem egyertelmu, mert 2 db EastWorldEntity van benne!
 
 	std::vector<EastWorldEntity*> EastWorldEntityCollection;
 	EastWorldEntityCollection.push_back(&ewe1);
 	EastWorldEntityCollection.push_back(&rob1);
 	EastWorldEntityCollection.push_back(&sb1);
-	// EastWorldEntityCollection.push_back(&fh);
-	EastWorldEntityCollection.push_back(&hum);
+	EastWorldEntityCollection.push_back(dynamic_cast<Robot*>(&fh)); // h mit ir ki, attol fugg, mire kasztolom
+	EastWorldEntityCollection.push_back(dynamic_cast<BehavesLikeHuman*>(&fh));
+	EastWorldEntityCollection.push_back(&hum); // ugy latszik, itt egyertelmu a helyzet
 
 	std::cout << "introduce entities through vector" << std::endl;
 	for (std::vector<EastWorldEntity*>::iterator i = EastWorldEntityCollection.begin();

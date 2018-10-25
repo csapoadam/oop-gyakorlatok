@@ -71,7 +71,7 @@ private:
 	const std::string nationalid;
 };
 
-class FakeHuman : public Robot, BehavesLikeHuman {
+class FakeHuman : public Robot, public BehavesLikeHuman {
 	// megj: BehavesLikeHuman azert nem szarmazik EastWorldEntitybol, mert
 	// akkor Roboton es BehavesLikeHumanen keresztul FakeHuman ket kulonbozo
 	// EastWorldEntity-t is tartalmazna (hires diamond shape problem)
@@ -80,7 +80,7 @@ public:
 	FakeHuman(std::string name, std::string nid) : Robot(name), BehavesLikeHuman(nid) {}
 };
 
-class Human : public EastWorldEntity, BehavesLikeHuman {
+class Human : public EastWorldEntity, public BehavesLikeHuman {
 public:
 	Human(std::string name, std::string nid) : EastWorldEntity(name), BehavesLikeHuman(nid) {}
 };
