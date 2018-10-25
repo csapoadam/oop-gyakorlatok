@@ -78,11 +78,17 @@ class FakeHuman : public Robot, BehavesLikeHuman {
 	// Ez tulmutat a targy keretein, de veszelyes mert akkor 2 name lenne pl.
 public:
 	FakeHuman(std::string name, std::string nid) : Robot(name), BehavesLikeHuman(nid) {}
+	void whatsYourName() {
+		std::cout << "somethingsomething" << std::endl;
+	}
 };
 
 class Human : public EastWorldEntity, BehavesLikeHuman {
 public:
 	Human(std::string name, std::string nid) : EastWorldEntity(name), BehavesLikeHuman(nid) {}
+	void whatsYourName() {
+		std::cout << "I mean your human name..." << std::endl;
+	}
 };
 
 #endif // !EAST_WORLD_ENTITIES_HPP
