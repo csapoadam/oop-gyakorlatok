@@ -22,8 +22,8 @@ class Robot : public EastWorldEntity { // public orokles, mert Robot egyfajta En
 public:
 	/*
 	Robot(const std::string name) {
-		this->name = name; //nem jo, mert konstanst valtozot inicializalni kell!!
-		//Raadasul name a szuloben private is szoval... innen nem elerheto
+	this->name = name; //nem jo, mert konstanst valtozot inicializalni kell!!
+	//Raadasul name a szuloben private is szoval... innen nem elerheto
 	};
 	*/
 	// minden robot objektum tartalmaz egy Entity-t is a mem.teruleten
@@ -41,10 +41,10 @@ public:
 		}
 	};
 protected: // ez es szarmazo osztalyok elerik, de kivulrol nem lehet
-	// ezzel szemben: public: szarmazo osztalyokbol ES kivulrol is elerheto
-	// ezzel szemben: private: sem szarmazo osztalyokbol, sem kivulrol NEM elerheto
-	// Stroustrup: protectedet csak fuggvenyekre hasznaljunk. Valtozoknal mindig kerdes, hogy miert protected??
-	// ha protected -> ki fogja irni? Ha senki, miert protected?
+		   // ezzel szemben: public: szarmazo osztalyokbol ES kivulrol is elerheto
+		   // ezzel szemben: private: sem szarmazo osztalyokbol, sem kivulrol NEM elerheto
+		   // Stroustrup: protectedet csak fuggvenyekre hasznaljunk. Valtozoknal mindig kerdes, hogy miert protected??
+		   // ha protected -> ki fogja irni? Ha senki, miert protected?
 	int getCharge() {
 		return batteryCharge;
 	}
@@ -58,15 +58,15 @@ class ServantBot : public Robot {
 public:
 	ServantBot(std::string name) : Robot(name) {}
 	void whatsYourName() { //a szuloben is van ilyen fv, attol fugg, melyiket hivjuk meg, h melyik fut le
-		// name sajnos private
-		// std::cout << "Hi Master, my name is " << name << "... what can I do for you?" << std::endl;
+						   // name sajnos private
+						   // std::cout << "Hi Master, my name is " << name << "... what can I do for you?" << std::endl;
 		std::cout << "Hi, I'm a servant bot, but I forgot my name. However, I can tell you my battery level is: " << getCharge() << std::endl;
 	}
 };
 
-class BehavesLikeHuman { // nem szarmazik EastWorldEntitybol, ld. lentebb, h miert
+class BehavesLikeHuman : public EastWorldEntity {
 public:
-	BehavesLikeHuman(std::string nid) : nationalid(nid) {}
+	BehavesLikeHuman(std::string nid) : nationalid(nid), EastWorldEntity("behaving like Hum") {}
 private:
 	const std::string nationalid;
 };

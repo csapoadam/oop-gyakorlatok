@@ -18,14 +18,14 @@ int main() {
 	ewe1.whatsYourName();
 	rob1.whatsYourName();
 	sb1.whatsYourName();
-	fh.whatsYourName();
-	hum.whatsYourName();
+	//fh.whatsYourName();
+	//hum.whatsYourName();
 
 	std::vector<EastWorldEntity*> EastWorldEntityCollection;
 	EastWorldEntityCollection.push_back(&ewe1);
 	EastWorldEntityCollection.push_back(&rob1);
 	EastWorldEntityCollection.push_back(&sb1);
-	EastWorldEntityCollection.push_back(&fh);
+	// EastWorldEntityCollection.push_back(&fh);
 	EastWorldEntityCollection.push_back(&hum);
 
 	std::cout << "introduce entities through vector" << std::endl;
@@ -39,5 +39,5 @@ int main() {
 
 	char c;
 	std::cin >> c;
-    return 0;
+	return 0;
 }
