@@ -79,7 +79,8 @@ class FakeHuman : public Robot, BehavesLikeHuman {
 public:
 	FakeHuman(std::string name, std::string nid) : Robot(name), BehavesLikeHuman(nid) {}
 	void whatsYourName() {
-		std::cout << "somethingsomething" << std::endl;
+		BehavesLikeHuman::whatsYourName();
+		// Robot::whatsYourName();
 	}
 };
 
