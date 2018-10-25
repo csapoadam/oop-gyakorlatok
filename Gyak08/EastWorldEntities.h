@@ -8,7 +8,7 @@
 class EastWorldEntity {
 public:
 	EastWorldEntity(const std::string n) : name(n) {}
-	virtual void whatsYourName() {
+	void whatsYourName() {
 		std::cout << "My name is " << name << "... hello!" << std::endl;
 	}
 private:
@@ -76,7 +76,7 @@ private:
 // ekkor ha unokabol meghivjuk nagyszulo X() metodusat, nem egyertelmu a helyet
 // 3 megoldas:
 // a. unokaban is definialunk X() metodust, es az teszi a sajat dolgat, vagy meghivja Szulo1::X() vagy Szulo2::X() fv-eket
-// b. ha az osztalyok polimorfikusak (= van legalabb 1 virtualis fv a nagyszuloben), dinamikus kasztolas mukodhet!
+// b. ha az osztalyok egymasbol szarmaznak, dinamikus kasztolas mukodhet!
 // c. a legjobb megoldas a virtualis orokles
 // ekkor Szulo 1 : public virtual Nagyszulo
 // ekkor Szulo 2 : public virtual Nagyszulo
