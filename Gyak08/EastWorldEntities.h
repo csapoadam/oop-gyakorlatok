@@ -17,8 +17,11 @@ private:
 	//(kiveve fake humaneknek)
 };
 
-class Robot : public EastWorldEntity { // public orokles, mert Robot egyfajta Entity!!
+class Robot : public virtual EastWorldEntity { // public orokles, mert Robot egyfajta Entity!!
 									   // (interfeszt oroklunk, nem implementaciot hasznalunk fel ujra / rejtunk el)
+									// mivel az orokles virtualis, a Robotbol oroklo tovabbi osztalyokban garantaltan csak 1 db EastWorldEntity lesz!
+									// ennek eleresehez Robot konstruktora atugorja EastWorldEntity konstruktorat (akkor, amikor Robotbol szarmazo osztalyt peldanyositunk)
+									// (ha direktben Robotot peldanyositunk, mas a helyzet: az itteni konstruktor hivodik meg)
 public:
 	/*
 	Robot(const std::string name) {
@@ -56,7 +59,7 @@ private:
 
 class ServantBot : public Robot {
 public:
-	ServantBot(std::string name) : Robot(name) {}
+	ServantBot(std::string name) : Robot(name), EastWorldEntity(name) {} // mostantol itt is kell EastWorldEntity konstruktor, mivel Robot konstruktora atugorja EastWorldEntity konstrualasat!!
 	void whatsYourName() { //a szuloben is van ilyen fv, attol fugg, melyiket hivjuk meg, h melyik fut le
 						   // name sajnos private
 						   // std::cout << "Hi Master, my name is " << name << "... what can I do for you?" << std::endl;
@@ -64,7 +67,10 @@ public:
 	}
 };
 
-class BehavesLikeHuman : public EastWorldEntity { // nem szarmazik EastWorldEntitybol, ld. lentebb, h miert
+class BehavesLikeHuman : public virtual EastWorldEntity { // nem szarmazik EastWorldEntitybol, ld. lentebb, h miert
+														  // mivel az orokles virtualis, a BehavesLikeHumanbol oroklo tovabbi osztalyokban garantaltan csak 1 db EastWorldEntity lesz!
+														  // ennek eleresehez BehavesLikeHuman konstruktora atugorja EastWorldEntity konstruktorat (akkor, amikor BehavesLikeHumanbol szarmazo osztalyt peldanyositunk)
+														  // (ha direktben BehavesLikeHumant peldanyositunk, mas a helyzet: az itteni konstruktor hivodik meg)
 public:
 	BehavesLikeHuman(std::string nid) : nationalid(nid), EastWorldEntity("Balazs") {}
 private:
@@ -77,19 +83,14 @@ class FakeHuman : public Robot, BehavesLikeHuman {
 	// EastWorldEntity-t is tartalmazna (hires diamond shape problem)
 	// Ez tulmutat a targy keretein, de veszelyes mert akkor 2 name lenne pl.
 public:
-	FakeHuman(std::string name, std::string nid) : Robot(name), BehavesLikeHuman(nid) {}
-	void whatsYourName() {
-		BehavesLikeHuman::whatsYourName();
-		// Robot::whatsYourName();
-	}
+	// mostantol itt is kell EastWorldEntity konstruktor, mivel Robot es BehavesLikeHuman konstruktora atugorja EastWorldEntity konstrualasat!!
+	FakeHuman(std::string name, std::string nid) : Robot(name), BehavesLikeHuman(nid), EastWorldEntity("Hanna") {}
 };
 
-class Human : public EastWorldEntity, BehavesLikeHuman {
+class Human : public BehavesLikeHuman {
 public:
+	// mostantol itt is kell EastWorldEntity konstruktor, mivel BehavesLikeHuman konstruktora atugorja EastWorldEntity konstrualasat!!
 	Human(std::string name, std::string nid) : EastWorldEntity(name), BehavesLikeHuman(nid) {}
-	void whatsYourName() {
-		std::cout << "I mean your human name..." << std::endl;
-	}
 };
 
 #endif // !EAST_WORLD_ENTITIES_HPP

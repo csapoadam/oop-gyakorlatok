@@ -25,7 +25,7 @@ int main() {
 	EastWorldEntityCollection.push_back(&ewe1);
 	EastWorldEntityCollection.push_back(&rob1);
 	EastWorldEntityCollection.push_back(&sb1);
-	// EastWorldEntityCollection.push_back(&fh); fh 2 darab EastWorldEntity-t tartalmaz, nem lehet konvertalni
+	EastWorldEntityCollection.push_back(&fh); //fh mar csak 1 db EastWorldEntity-t tartalmaz
 	EastWorldEntityCollection.push_back(&hum);
 
 	std::cout << "introduce entities through vector" << std::endl;
