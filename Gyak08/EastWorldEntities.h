@@ -8,7 +8,7 @@
 class EastWorldEntity {
 public:
 	EastWorldEntity(const std::string n) : name(n) {}
-	void whatsYourName() {
+	virtual void whatsYourName() {
 		std::cout << "My name is " << name << "... hello!" << std::endl;
 	}
 private:
