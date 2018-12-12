@@ -26,6 +26,8 @@ int main()
 	std::cout << "sum and prod are: " << dv2.sum() << " and " << dv2.prod() << std::endl; // same pointers, both are overwritten!
 
 
+	delete dv1; // whoops! always delete. Forgot this earlier.
+
 	char c;
 	std::cin >> c;
     return 0;
