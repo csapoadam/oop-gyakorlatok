@@ -28,6 +28,11 @@ public:
 	int prod() const {
 		return *a * *b;
 	}
+
+	void resetA(int val) {
+		delete a;
+		a = new int{ val };
+	}
 };
 
 // #endif // !arithm_h

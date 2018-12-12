@@ -20,6 +20,12 @@ int main()
 	DoubleValue* dv1 = new DoubleValue(6, 5);
 	std::cout << "sum and prod are: " << dv1->sum() << " and " << dv1->prod() << std::endl;
 
+	DoubleValue dv2(*dv1); // copy constructor implemented incorrectly by default
+	dv2.resetA(5);
+	std::cout << "sum and prod are: " << dv1->sum() << " and " << dv1->prod() << std::endl;
+	std::cout << "sum and prod are: " << dv2.sum() << " and " << dv2.prod() << std::endl; // same pointers, both are overwritten!
+
+
 	char c;
 	std::cin >> c;
     return 0;
