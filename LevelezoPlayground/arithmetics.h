@@ -21,6 +21,8 @@ public:
 		delete this->b;
 	}
 
+	DoubleValue(const DoubleValue&) = delete;
+
 	int sum() const { // const mert nem valtoztatja az osztaly allapotat
 		return *a + *b;
 	}
