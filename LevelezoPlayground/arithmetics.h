@@ -21,7 +21,10 @@ public:
 		delete this->b;
 	}
 
-	DoubleValue(const DoubleValue&) = delete;
+	DoubleValue(const DoubleValue& masik) {
+		this->a = new int{ *(masik.a) };
+		this->b = new int{ *(masik.b) };
+	}
 
 	int sum() const { // const mert nem valtoztatja az osztaly allapotat
 		return *a + *b;
