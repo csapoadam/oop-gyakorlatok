@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include<iostream>
 #include "myheader1.h"
 #include "myheader2.h" // now we are including myheader2 twice!
@@ -58,11 +59,20 @@ int main()
 	ValueType* vtarr[3];
 	vtarr[0] = &dv1;
 	vtarr[1] = &tr1;
-	vtarr[2] = &dv3;
+	// vtarr[2] = &dv3; dv3 mar nem letezik...
+	vtarr[2] = &dv4;
 
 	for (int i = 0; i < 3; i++) {
+		TripleValue* castedTv = dynamic_cast<TripleValue*>(vtarr[i]);
+		if (castedTv) { // ha nem sikerul, mert DoubleValue, akkor ez itt nullptr
+			// vtarr[i]->resetC(55); nem jo, a castoltat kell hasznalni
+			castedTv->resetC(55);
+		}
+		else {
+			std::cout << "cannot reset C for DoubleValue" << std::endl;
+		}
 		// vtarr[i].print(); // ValueType has no member print
-		// vtarr[i]->print(); //ValueType has no member print
+		vtarr[i]->print();
 	}
 
 	char c;

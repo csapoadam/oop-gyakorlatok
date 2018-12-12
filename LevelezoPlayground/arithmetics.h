@@ -24,6 +24,7 @@ public:
 	virtual ~ValueType() {
 		std::cout << "Base class destructor" << std::endl;
 	}
+	virtual void print() const = 0;
 	virtual int sum() const { return 0; }
 };
 
@@ -32,7 +33,7 @@ class DoubleValue : public ValueType { // Double Value egyfajta ValueType
 	int* b;
 public:
 	DoubleValue(std::string name, int a, int b);
-	~DoubleValue();
+	virtual ~DoubleValue(); // if parent is polymorphic, must be virtual!!
 	DoubleValue(const DoubleValue& masik);
 	DoubleValue(DoubleValue&& masik);
 	DoubleValue& operator=(DoubleValue& masik);
@@ -40,7 +41,7 @@ public:
 	int sum() const;
 	int prod() const;
 	void resetA(int val);
-	void print() const;
+	virtual void print() const override;
 };
 
 class TripleValue : public ValueType { // TripleValue egyfajta ValueType
@@ -49,14 +50,17 @@ class TripleValue : public ValueType { // TripleValue egyfajta ValueType
 	int* c;
 public:
 	TripleValue(std::string name, int a, int b, int c);
-	~TripleValue();
+	virtual ~TripleValue(); // if parent is polymorphic, must be virtual!
 	TripleValue(const TripleValue& masik) = delete; // No funny business!
 	TripleValue(TripleValue&& masik) = delete;
 	TripleValue& operator=(TripleValue& masik) = delete;
 	TripleValue& operator=(TripleValue&& masik) = delete;
 	int sum() const { return *a + *b + *c; }
 	int prod() const { return *a * *b * *c; }
-	void print() const;
+	virtual void print() const override;
+	void resetC(int cval) {
+		*c = cval;
+	}
 };
 
 // #endif // !arithm_h
