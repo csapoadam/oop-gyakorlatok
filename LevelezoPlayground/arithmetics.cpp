@@ -3,7 +3,7 @@
 
 int bias = 25;
 
-DoubleValue::DoubleValue(int a, int b) {
+DoubleValue::DoubleValue(std::string name, int a, int b) : ValueType(name) {
 	this->a = new int{ a };
 	this->b = new int{ b };
 }
@@ -14,12 +14,12 @@ DoubleValue::~DoubleValue() {
 	delete this->b;
 }
 
-DoubleValue::DoubleValue(const DoubleValue& masik) {
+DoubleValue::DoubleValue(const DoubleValue& masik) : ValueType("copied") {
 	this->a = new int{ *(masik.a) };
 	this->b = new int{ *(masik.b) };
 }
 
-DoubleValue::DoubleValue(DoubleValue&& masik) {
+DoubleValue::DoubleValue(DoubleValue&& masik) : ValueType("moved") {
 	this->a = masik.a;
 	this->b = masik.b;
 	masik.a = nullptr;
@@ -56,9 +56,27 @@ void DoubleValue::resetA(int val) {
 	a = new int{ val };
 }
 
-void DoubleValue::print(std::string name) const {
-	std::cout << name << ": values, sum and prod are: ";
+void DoubleValue::print() const {
+	std::cout << getName() << ": values, sum and prod are: "; // getName() is muszaj, hogy const legyen!!
 	std::cout << "(" << *a << ",  " << *b << "), ";
+	std::cout << sum() << " and " << prod() << std::endl;
+}
+
+TripleValue::TripleValue(std::string name, int a, int b, int c) : ValueType(name) {
+	this->a = new int{ a };
+	this->b = new int{ b };
+	this->c = new int{ c };
+}
+
+TripleValue::~TripleValue() {
+	std::cout << "Triple value destructor called" << std::endl;
+	delete this->a;
+	delete this->b;
+}
+
+void TripleValue::print() const {
+	std::cout << getName() << ": values, sum and prod are: "; // getName() is muszaj, hogy const legyen!!
+	std::cout << "(" << *a << ",  " << *b << ", " << *c << "), ";
 	std::cout << sum() << " and " << prod() << std::endl;
 }
 
