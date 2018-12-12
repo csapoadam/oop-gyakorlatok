@@ -11,10 +11,15 @@ int sumWithBias(int a, int b) {
 }
 
 int main()
-{	
+{
 	std::cout << "x erteke: " << x << std::endl;
 	std::cout << sum(x, x) << std::endl;
-	std::cout << sumWithBias(x, x);
+	std::cout << sumWithBias(x, x) << std::endl;
+
+	// DoubleValue* dv1 = new DoubleValue; mivel van legalabb 1 konstruktor, ez mar nem jo
+	DoubleValue* dv1 = new DoubleValue(6, 5);
+	std::cout << "sum and prod are: " << dv1->sum() << " and " << dv1->prod() << std::endl;
+
 	char c;
 	std::cin >> c;
     return 0;
