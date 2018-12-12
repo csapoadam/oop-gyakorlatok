@@ -31,7 +31,10 @@ int main()
 	std::cout << "Test copy assignment" << std::endl;
 	DoubleValue dv3(7, 6);
 	std::cout << "sum and prod are: " << dv3.sum() << " and " << dv3.prod() << std::endl;
-	dv3 = dv2; // copy assignment generated automatically... but is incorrect in this case
+	// Erdekesseg: a kovetkezo sornal 2x lefut a destruktor. Miert?
+	// Meghivjuk a copy assignmentet. Letrehoz egy tmp nevu DoubleValue-t. A vegen az torlodik
+	// Masreszt a copy assignmentben van egy swap. Az felhasznalja a move assignmentet, amiben szinten megszunik a 'masik' nevu valtozo.
+	dv3 = dv2;
 	std::cout << "sum and prod are: " << dv3.sum() << " and " << dv3.prod() << std::endl;
 	dv3.resetA(7);
 	std::cout << "sum and prod are: " << dv2.sum() << " and " << dv2.prod() << std::endl; // whoops!
