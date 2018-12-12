@@ -1,3 +1,6 @@
+// ConsoleApplication4.cpp : Defines the entry point for the console application.
+//
+
 #include "stdafx.h"
 #include<iostream>
 #include "myheader1.h"
@@ -25,6 +28,13 @@ int main()
 	std::cout << "sum and prod are: " << dv1->sum() << " and " << dv1->prod() << std::endl;
 	std::cout << "sum and prod are: " << dv2.sum() << " and " << dv2.prod() << std::endl; // same pointers, both are overwritten!
 
+	std::cout << "Test copy assignment" << std::endl;
+	DoubleValue dv3(7, 6);
+	std::cout << "sum and prod are: " << dv3.sum() << " and " << dv3.prod() << std::endl;
+	dv3 = dv2; // copy assignment generated automatically... but is incorrect in this case
+	std::cout << "sum and prod are: " << dv3.sum() << " and " << dv3.prod() << std::endl;
+	dv3.resetA(5);
+	std::cout << "sum and prod are: " << dv2.sum() << " and " << dv2.prod() << std::endl; // whoops!
 
 	delete dv1; // whoops! always delete. Forgot this earlier.
 
