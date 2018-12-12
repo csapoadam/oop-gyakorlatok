@@ -26,6 +26,13 @@ public:
 		this->b = new int{ *(masik.b) };
 	}
 
+	DoubleValue(DoubleValue&& masik) {
+		this->a = masik.a;
+		this->b = masik.b;
+		masik.a = nullptr;
+		masik.b = nullptr;
+	}
+
 	// 2. lepes: copy assignment
 	DoubleValue& operator=(DoubleValue& masik) {
 		// if copy assignment fails, left-hand side variable will be left in an inconsistent state!

@@ -38,7 +38,15 @@ int main()
 	std::cout << "sum and prod are: " << dv3.sum() << " and " << dv3.prod() << std::endl;
 	dv3.resetA(7);
 	std::cout << "sum and prod are: " << dv2.sum() << " and " << dv2.prod() << std::endl; // whoops!
-	std::cout << "sum and prod are: " << dv3.sum() << " and " << dv3.prod() << std::endl; // whoops!
+	std::cout << "sum and prod are: " << dv3.sum() << " and " << dv3.prod() << std::endl; // whoops
+
+	// test move assignment
+	std::cout << "sum and prod are: " << dv2.sum() << " and " << dv2.prod() << std::endl; // whoops!
+	std::cout << "sum and prod are: " << dv3.sum() << " and " << dv3.prod() << std::endl; // whoops
+	DoubleValue dv4(std::move(dv3)); // std::move jobb oldali referenciat ad vissza!
+	std::cout << "sum and prod are: " << dv4.sum() << " and " << dv4.prod() << std::endl; // whoops!
+	// std::cout << "sum and prod are: " << dv3.sum() << " and " << dv3.prod() << std::endl; // whoops
+	// az elozo sor exception-t dob, mivel d3 mar nem letezik!!
 
 	delete dv1; // whoops! always delete. Forgot this earlier.
 
