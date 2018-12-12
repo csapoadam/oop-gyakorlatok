@@ -8,6 +8,36 @@
 int sum(int, int);
 int prod(int, int);
 
+
+template <typename T>
+class ValuePrinter {
+private:
+	T val;
+public:
+	ValuePrinter(T v) { // template osztaly minden fv-et a h fajlban kell implementalni!
+		val = v; // azert, mert amikor peldanyositjuk, be kell helyettesiteni a tipust mindenhova, de a fordito egyszerre csak egy cpp fajlt lat!
+	}
+	void print();
+};
+
+template <typename T>
+void ValuePrinter<T>::print() {
+	std::cout << "value is " << val << std::endl;
+}
+
+template <>
+class ValuePrinter<char> {
+private:
+	char val;
+public:
+	ValuePrinter(char v) { // template osztaly minden fv-et a h fajlban kell implementalni!
+		val = v; // azert, mert amikor peldanyositjuk, be kell helyettesiteni a tipust mindenhova, de a fordito egyszerre csak egy cpp fajlt lat!
+	}
+	void print() {
+		std::cout << "character value is " << val << std::endl;
+	}
+};
+
 class ValueType {
 	std::string name;
 protected:

@@ -75,6 +75,13 @@ int main()
 		vtarr[i]->print();
 	}
 
+	std::cout << "try out template class ValuePrinter" << std::endl;
+	ValuePrinter<int> vp1(5);
+	ValuePrinter<char> vp2('p');
+
+	vp1.print();
+	vp2.print();
+
 	char c;
 	std::cin >> c;
     return 0;
