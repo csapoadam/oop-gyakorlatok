@@ -56,6 +56,12 @@ void DoubleValue::resetA(int val) {
 	a = new int{ val };
 }
 
+void DoubleValue::print(std::string name) const {
+	std::cout << name << ": values, sum and prod are: ";
+	std::cout << "(" << *a << ",  " << *b << "), ";
+	std::cout << sum() << " and " << prod() << std::endl;
+}
+
 int sum(int a, int b) {
 	return a + b;
 }

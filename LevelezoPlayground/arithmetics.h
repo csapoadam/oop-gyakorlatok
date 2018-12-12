@@ -3,6 +3,7 @@
 // #define arithm_h
 
 #include <iostream>
+#include <string>
 
 int sum(int, int);
 int prod(int, int);
@@ -20,6 +21,7 @@ public:
 	int sum() const;
 	int prod() const;
 	void resetA(int val);
+	void print(std::string) const;
 };
 
 // #endif // !arithm_h
